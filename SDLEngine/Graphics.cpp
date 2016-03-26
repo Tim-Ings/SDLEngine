@@ -1,8 +1,10 @@
 #include "Graphics.h"
 
 
-Graphics::Graphics()
+Graphics::Graphics(Engine* e)
 {
+	engine = e;
+
 	screenWidth = 1024;
 	screenHeight = 768;
 	window = nullptr;
@@ -81,9 +83,12 @@ void Graphics::InitSDL()
 		fatalError("FAILED: glewInit(): " + err);
 }
 
+float time = 0.0;
 
 void Graphics::Draw()
 {
+	time += 0.01;
+
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -92,6 +97,10 @@ void Graphics::Draw()
 	// --------------------------------
 
 	colorProg->Use();
+
+	auto timeLoc = colorProg->GetUniformLocation("time");
+
+	glUniform1f(timeLoc, time);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);
 	glEnableVertexAttribArray(0);

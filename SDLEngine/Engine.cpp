@@ -18,7 +18,7 @@ Engine::~Engine()
 void Engine::Init()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	graphics = new Graphics();
+	graphics = new Graphics(this);
 }
 
 void Engine::Run()

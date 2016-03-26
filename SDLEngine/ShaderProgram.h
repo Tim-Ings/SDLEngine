@@ -13,6 +13,8 @@ public:
 	void Use();
 	void Disuse();
 
+	GLuint GetUniformLocation(const std::string& name);
+
 private:
 	GLuint Compile(const std::string& filePath, GLenum type);
 	GLuint Link(GLuint vertexID, GLuint fragID);

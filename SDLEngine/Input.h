@@ -17,10 +17,11 @@ public:
 	static glm::vec2 GetMousePos() { return glm::vec2(mouseX, mouseY); }
 
 private:
-	static const Uint8* Input::keyboardState;
-	static const Uint8* Input::lastKeyboardState;
+	static Uint8* Input::keyboardState;
+	static Uint8* Input::lastKeyboardState;
 	
 	static int mouseX;
 	static int mouseY;
+	static bool mouseButtons[4];
 };
 

@@ -115,10 +115,10 @@ GLuint ShaderProgram::Link(GLuint vertexID, GLuint fragID)
 void ShaderProgram::Use()
 {
 	glUseProgram(programID);
-	/*for (int i = 0; i < attributeCount; i++)
+	for (int i = 0; i < attributeCount; i++)
 	{
 		glEnableVertexAttribArray(i);
-	}*/
+	}
 }
 
 
@@ -129,4 +129,13 @@ void ShaderProgram::Disuse()
 		glDisableVertexAttribArray(i);
 	}
 	glUseProgram(0);
+}
+
+
+GLuint ShaderProgram::GetUniformLocation(const std::string& name)
+{
+	GLuint locationID = glGetUniformLocation(programID, name.c_str());
+	if (locationID == GL_INVALID_INDEX)
+		fatalError("FAILED: Uniform \"" + name + "\" not found in shader");
+	return locationID;
 }

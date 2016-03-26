@@ -1,6 +1,5 @@
 #pragma once
-//#include <SDL\SDL.h>
-//#include <FBX\fbxsdk.h>
+#include <fbxsdk.h>
 
 class Model
 {

@@ -1,9 +1,10 @@
 #include "Input.h"
 
-const Uint8* Input::keyboardState = nullptr;
-const Uint8* Input::lastKeyboardState = nullptr;
+Uint8* Input::keyboardState = nullptr;
+Uint8* Input::lastKeyboardState = nullptr;
 int Input::mouseX;
 int Input::mouseY;
+bool Input::mouseButtons[4];
 
 void Input::Update()
 {
@@ -18,6 +19,12 @@ void Input::Update()
 		case SDL_MOUSEMOTION:
 			Input::mouseX = e.motion.x;
 			Input::mouseY = e.motion.y;
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			Input::mouseButtons[e.button.button] = true;
+			break;
+		case SDL_MOUSEBUTTONUP:
+			Input::mouseButtons[e.button.button] = false;
 			break;
 		default:
 			break;

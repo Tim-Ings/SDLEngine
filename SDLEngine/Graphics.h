@@ -7,10 +7,12 @@
 #include "Vertex.h"
 #include <cstddef>
 
+class Engine;
+
 class Graphics
 {
 public:
-	Graphics();
+	Graphics(Engine* e);
 	~Graphics();
 	
 	SDL_Window* GetWindow() { return window; }
@@ -21,6 +23,7 @@ private:
 	void InitSDL();
 
 private:
+	Engine* engine;
 	int screenWidth;
 	int screenHeight;
 	SDL_Window* window;
