@@ -1,163 +1,119 @@
 #include "Camera3.h"
 
-const double Camera3::TO_RADS = 3.141592654 / 180.0; // The value of 1 degree in radians
 
-Camera3::Camera3(int theWindowWidth, int theWindowHeight)
+
+Camera3::Camera3(SDL_Window* window) :
+	window(nullptr),
+	windowWidth(0),
+	windowHeight(0),
+	warpMouse(true),
+	position(glm::vec3(0.0f, 1.0f, 3.0f)),
+	front(glm::vec3(0.0f)),
+	up(VEC3_UP),
+	right(VEC3_RIGHT),
+	worldUp(VEC3_UP),
+	yaw(-90.0f),
+	pitch(0.0f),
+	movementSpeed(3.0f),
+	mouseSensitivity(0.25f),
+	zoom(45.0f),
+	constrainPitch(true)
 {
-	initCamera();
-
-	windowWidth = theWindowWidth;
-	windowHeight = theWindowHeight;
-
-	// Calculate the middle of the window
-	windowMidX = windowWidth / 2;
-	windowMidY = windowHeight / 2;
-
-	//glfwSetMousePos(windowMidX, windowMidY);
+	this->window = window;
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+	if (windowWidth == 0 || windowHeight == 0)
+		fatalError("Invalid window for camera3");
+	CalculateVectors();
 }
+
 
 Camera3::~Camera3()
 {
-	// Nothing to do here - we don't need to free memory as all member variables
-	// were declared on the stack.
+	
 }
 
-void Camera3::initCamera()
+
+void Camera3::LookAt(glm::vec3 target)
 {
-	// Set position, rotation and speed values to zero
-	position = glm::vec3(0.0f);
-	rotation = glm::vec3(0.0f);
-	speed = glm::vec3(0.0f);
 
-	// How fast we move (higher values mean we move and strafe faster)
-	movementSpeedFactor = 100.0f;
-
-	pitchSensitivity = 0.2f; // How sensitive mouse movements affect looking up and down
-	yawSensitivity = 0.2f; // How sensitive mouse movements affect looking left and right
-
-						  // To begin with, we aren't holding down any keys
-	holdingForward = false;
-	holdingBackward = false;
-	holdingLeftStrafe = false;
-	holdingRightStrafe = false;
 }
 
-// Function to convert degrees to radians
-const double Camera3::toRads(const double &theAngleInDegrees) const
+
+void Camera3::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 {
-	return theAngleInDegrees * TO_RADS;
+	float velocity = movementSpeed * deltaTime;
+	if (direction == FORWARD)
+		position += front * velocity;
+	if (direction == BACKWARD)
+		position -= front * velocity;
+	if (direction == LEFT)
+		position -= right * velocity;
+	if (direction == RIGHT)
+		position += right * velocity;
+
+	printf("camera processing keyboard %d\n", direction);
 }
 
-// Function to deal with mouse position changes
-void Camera3::handleMouseMove(int mouseX, int mouseY)
+
+// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
+void Camera3::ProcessMouseMovement(const glm::vec2& newMousePos)
 {
-	// Calculate our horizontal and vertical mouse movement from middle of the window
-	float horizMovement = (mouseX - windowMidX + 1) * yawSensitivity;
-	float vertMovement = (mouseY - windowMidY) * pitchSensitivity;
+	glm::vec2 mouseDelta = newMousePos - oldMousePosition;
 
-	std::cout << "Mid window values: " << windowMidX << "\t" << windowMidY << std::endl;
-	std::cout << "Mouse values     : " << mouseX << "\t" << mouseY << std::endl;
-	std::cout << horizMovement << "\t" << vertMovement << std::endl << std::endl;
+	float xoffset = mouseDelta.x * mouseSensitivity;
+	float yoffset = mouseDelta.x * mouseSensitivity;
 
-	// Apply the mouse movement to our rotation vector. The vertical (look up and down)
-	// movement is applied on the X axis, and the horizontal (look left and right)
-	// movement is applied on the Y Axis
-	rotation.x += vertMovement;
-	rotation.y += horizMovement;
+	printf("camera processing mouse %f %f\n", xoffset, yoffset);
 
-	// Limit loking up to vertically up
-	if (rotation.x < -90)
+	yaw += xoffset;
+	pitch += yoffset;
+
+	// Make sure that when pitch is out of bounds, screen doesn't get flipped
+	if (constrainPitch)
 	{
-		rotation.x = -90;
+		if (pitch > 89.0f)
+			pitch = 89.0f;
+		if (pitch < -89.0f)
+			pitch = -89.0f;
 	}
 
-	// Limit looking down to vertically down
-	if (rotation.x > 90)
-	{
-		rotation.x = 90;
-	}
+	if (warpMouse)
+		SDL_WarpMouseInWindow(window, windowWidth / 2, windowHeight / 2);
 
-	// If you prefer to keep the angles in the range -180 to +180 use this code
-	// and comment out the 0 to 360 code below.
-	//
-	// Looking left and right. Keep the angles in the range -180.0f (anticlockwise turn looking behind) to 180.0f (clockwise turn looking behind)
-	/*if (yRot < -180.0f)
-	{
-	yRot += 360.0f;
-	}
+	oldMousePosition = newMousePos;
 
-	if (yRot > 180.0f)
-	{
-	yRot -= 360.0f;
-	}*/
-
-	// Looking left and right - keep angles in the range 0.0 to 360.0
-	// 0 degrees is looking directly down the negative Z axis "North", 90 degrees is "East", 180 degrees is "South", 270 degrees is "West"
-	// We can also do this so that our 360 degrees goes -180 through +180 and it works the same, but it's probably best to keep our
-	// range to 0 through 360 instead of -180 through +180.
-	if (rotation.y < 0)
-	{
-		rotation.y += 360;
-	}
-	if (rotation.y > 360)
-	{
-		rotation.y += -360;
-	}
-
-	// Reset the mouse position to the centre of the window each frame
-	//glfwSetMousePos(windowMidX, windowMidY);
+	// Update Front, Right and Up Vectors using the updated Eular angles
+	CalculateVectors();
 }
 
-// Function to calculate which direction we need to move the camera and by what amount
-void Camera3::move(double deltaTime)
+
+// Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
+void Camera3::ProcessMouseScroll(float yoffset)
 {
-	// Vector to break up our movement into components along the X, Y and Z axis
-	glm::vec3 movement;
+	if (zoom >= 1.0f && zoom <= 45.0f)
+		zoom -= yoffset;
+	if (zoom <= 1.0f)
+		zoom = 1.0f;
+	if (zoom >= 45.0f)
+		zoom = 45.0f;
+}
 
-	// Get the sine and cosine of our X and Y axis rotation
-	float sinXRot = (float)sin(toRads(rotation.x));
-	float cosXRot = (float)cos(toRads(rotation.x));
 
-	float sinYRot = (float)sin(toRads(rotation.y));
-	float cosYRot = (float)cos(toRads(rotation.y));
+void Camera3::CalculateVectors()
+{
+	// Calculate the new Front vector
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front = glm::normalize(front);
+	// Also re-calculate the Right and Up vector
+	right = glm::normalize(glm::cross(front, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+	up = glm::normalize(glm::cross(right, front));
+}
 
-	float pitchLimitFactor = cosXRot; // This cancels out moving on the Z axis when we're looking up or down
 
-	if (holdingForward)
-	{
-		movement.x += sinYRot * pitchLimitFactor;
-		movement.y -= sinXRot;
-		movement.z += -cosYRot * pitchLimitFactor;
-	}
-
-	if (holdingBackward)
-	{
-		movement.x += -sinYRot * pitchLimitFactor;
-		movement.y += sinXRot;
-		movement.z += cosYRot * pitchLimitFactor;
-	}
-
-	if (holdingLeftStrafe)
-	{
-		movement.x -= cosYRot;
-		movement.z -= sinYRot;
-	}
-
-	if (holdingRightStrafe)
-	{
-		movement.x += cosYRot;
-		movement.z += sinYRot;
-	}
-
-	// Normalise our movement vector
-	movement = glm::normalize(movement);
-
-	// Calculate our value to keep the movement the same speed regardless of the framerate...
-	double framerateIndependentFactor = movementSpeedFactor * deltaTime;
-
-	// .. and then apply it to our movement vector.
-	movement *= framerateIndependentFactor;
-
-	// Finally, apply the movement to our position
-	position += movement;
+void Camera3::Update()
+{
+	view = glm::lookAt(position, position + front, up);
 }

@@ -1,14 +1,24 @@
 #include "Input.h"
 
-Uint8* Input::keyboardState = nullptr;
-Uint8* Input::lastKeyboardState = nullptr;
+bool Input::keyboardState[BUFSIZ];
+bool Input::lastKeyboardState[BUFSIZ];
 int Input::mouseX;
 int Input::mouseY;
-bool Input::mouseButtons[4];
+bool Input::mouseButtons[3];
+bool Input::lastMouseButtons[3];
 
 void Input::Update()
 {
+	// reset all the last frame's key states
+	for (int i = 0; i < BUFSIZ; i++)
+		Input::lastKeyboardState[i] = false;
+
+	// reset all the last frame's mouse button states
+	for (int i = 0; i < 3; i++)
+		Input::lastMouseButtons[i] = false;
+
 	SDL_Event e;
+	static bool keysUpdatedThisFrame[BUFSIZ];
 	while (SDL_PollEvent(&e))
 	{
 		switch (e.type)
@@ -21,12 +31,20 @@ void Input::Update()
 			Input::mouseY = e.motion.y;
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			Input::mouseButtons[e.button.button] = true;
+			// sdl button 0 is null, so subtract 1
+			Input::mouseButtons[e.button.button - 1] = true;
 			break;
 		case SDL_MOUSEBUTTONUP:
-			Input::mouseButtons[e.button.button] = false;
+			// sdl button 0 is null, so subtract 1
+			Input::mouseButtons[e.button.button - 1] = false;
+			Input::lastMouseButtons[e.button.button - 1] = true;
 			break;
-		default:
+		case SDL_KEYDOWN:
+			Input::keyboardState[e.key.keysym.scancode] = true;
+			break;
+		case SDL_KEYUP:
+			Input::keyboardState[e.key.keysym.scancode] = false;
+			Input::lastKeyboardState[e.key.keysym.scancode] = true;
 			break;
 		}
 	}
@@ -38,9 +56,7 @@ bool Input::IsKeyDown(SDL_Scancode key)
 	if (!Input::keyboardState)
 		return false;
 
-	if (Input::keyboardState[key])
-		return true;
-	return false;
+	return Input::keyboardState[key];
 }
 
 
@@ -48,10 +64,8 @@ bool Input::IsKeyUp(SDL_Scancode key)
 {
 	if (!Input::keyboardState)
 		return false;
-
-	if (Input::keyboardState[key])
-		return false;
-	return true;
+	
+	return !Input::keyboardState[key];
 }
 
 
@@ -60,9 +74,7 @@ bool Input::WasKeyDown(SDL_Scancode key)
 	if (!Input::lastKeyboardState || !Input::keyboardState)
 		return false;
 
-	if (Input::lastKeyboardState[key] && !Input::keyboardState[key])
-		return true;
-	return false;
+	return Input::lastKeyboardState[key] && !Input::keyboardState[key];
 }
 
 
@@ -71,7 +83,29 @@ bool Input::WasKeyUp(SDL_Scancode key)
 	if (!Input::lastKeyboardState || !Input::keyboardState)
 		return false;
 
-	if (Input::lastKeyboardState[key] && !Input::keyboardState[key])
-		return false;
-	return true;
+	return !Input::lastKeyboardState[key] && Input::keyboardState[key];
+}
+
+
+bool Input::IsMouseDown(MouseButton mouseButton)
+{
+	return Input::mouseButtons[mouseButton];
+}
+
+
+bool Input::IsMouseUp(MouseButton mouseButton)
+{
+	return !Input::mouseButtons[mouseButton];
+}
+
+
+bool Input::WasMouseDown(MouseButton mouseButton)
+{
+	return !Input::mouseButtons[mouseButton] && Input::lastMouseButtons[mouseButton];
+}
+
+
+bool Input::WasMouseUp(MouseButton mouseButton)
+{
+	return Input::mouseButtons[mouseButton] && !Input::lastMouseButtons[mouseButton];
 }

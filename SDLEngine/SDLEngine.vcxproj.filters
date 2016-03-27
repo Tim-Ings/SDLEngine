@@ -69,6 +69,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="FloorGrid.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorGrid.h">
+      <Filter>Engine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,8 @@
 
 
 
-Engine::Engine()
+Engine::Engine() :
+	running(true)
 {
 	running = true;
 
@@ -18,11 +19,12 @@ Engine::~Engine()
 void Engine::Init()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	graphics = new Graphics(this);
-	fpsManager = new FpsManager(10);
-	fpsManager->SetWindowTitleFormat("SDL Engine - %d fps");
-	fpsManager->SetWindowTitleUpdatePeriod(1);
+	graphics.reset(new Graphics(this));
+	fpsManager.reset(new FpsManager(-1));
+	fpsManager->SetWindowTitleFormat("SDL Engine - %f cur fps - %f avg fps");
+	fpsManager->SetWindowTitleUpdatePeriod(1000);
 	fpsManager->SetWindow(graphics->GetWindow());
+	sceneManager.reset(new SceneManager());
 }
 
 
@@ -51,5 +53,6 @@ void Engine::Draw()
 void Engine::Update()
 {
 	fpsManager->Update();
+	graphics->Update(fpsManager->GetDeltaTime());
 	Input::Update();
 }

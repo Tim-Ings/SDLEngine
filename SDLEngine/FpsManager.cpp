@@ -17,9 +17,9 @@ FpsManager::FpsManager(int maxFrameRate) :
 	maxFps = maxFrameRate;
 	targetFrameDuration = (int)((1.0f / maxFps) * 1000.0f);
 	titleBuffer = (char*)malloc(BUFSIZ);
-	frameTimer = new Timer();
+	frameTimer.reset(new Timer());
 	frameTimer->Start();
-	windowTitleUpdateTimer = new Timer();
+	windowTitleUpdateTimer.reset(new Timer());
 	windowTitleUpdateTimer->Start();
 }
 
@@ -32,22 +32,34 @@ FpsManager::~FpsManager()
 
 void FpsManager::Update()
 {
+	// get ticks thsi frame andreset the timer
+	int ticksThisFrame = frameTimer->GetTicks();
+	frameTimer->Start();
+
 	// are we running to quickly?
-	if (frameTimer->GetTicks() < targetFrameDuration)
+	if (maxFps != -1 && ticksThisFrame < targetFrameDuration)
 	{
 		// yes we have
 		// sleep the current thread so we achieve our desired frame rate
-		int sleepDuration = targetFrameDuration - frameTimer->GetTicks();
-		std::this_thread::sleep_for(std::chrono::milliseconds(sleepDuration));
+		int sleepDuration = targetFrameDuration - ticksThisFrame;
+		sleepDuration *= 2; // this makes it work correctly i think
+		printf("too fast! sleeping for %dms\n", sleepDuration);
+		SDL_Delay(sleepDuration);
 	}
 
+	// calculate fps
+	currentFps = 1000.0f / (float)ticksThisFrame;
+	averageFps = frameCount / (SDL_GetTicks() / 1000.f);
+	if (averageFps > 2000000)
+		averageFps = 0;
 
 	// check if we need to update the window title
 	if (windowTitleUpdatePeriod != -1 && window)
 	{
 		if (windowTitleUpdateTimer->GetTicks() > windowTitleUpdatePeriod)
 		{
-			sprintf_s(titleBuffer, BUFSIZ, windowTitleFormat.c_str(), currentFps);
+			printf("updating window title with cur fps=%f & avg fps=%f\n", currentFps, averageFps);
+			sprintf_s(titleBuffer, BUFSIZ, windowTitleFormat.c_str(), currentFps, averageFps);
 			SDL_SetWindowTitle(window, titleBuffer);
 			windowTitleUpdateTimer->Start();
 		}
@@ -55,11 +67,10 @@ void FpsManager::Update()
 
 
 	// update delta time
-	deltaTime = (float)(frameTimer->GetTicks() / 1000.0f);
+	deltaTime = (float)(ticksThisFrame / 1000.0f);
 
 	// keep track of total frames
 	frameCount++; 
 
-	// reset the timer
-	frameTimer->Start();
+	
 }

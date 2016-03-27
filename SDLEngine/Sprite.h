@@ -11,6 +11,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <algorithm>
+#include "Camera3.h"
 
 
 class Sprite
@@ -23,7 +25,7 @@ public:
 	int GetHeight() { return height; }
 	std::string GetName() { return name; }
 
-	void Draw(const SDL_Rect& dest, const Color& color);
+	void Draw(Camera3* cam, const SDL_Rect& dest, const Color& color);
 
 private:
 	void GenerateVertexBuffer();

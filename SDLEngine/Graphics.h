@@ -6,7 +6,11 @@
 #include "ShaderProgram.h"
 #include "Vertex.h"
 #include <cstddef>
+#include <memory>
 #include "Sprite.h"
+#include "Camera3.h"
+#include "Input.h"
+#include "FloorGrid.h"
 
 class Engine;
 
@@ -18,6 +22,7 @@ public:
 	
 	SDL_Window* GetWindow() { return window; }
 
+	void Update(float deltaTime);
 	void Draw();
 
 private:
@@ -28,6 +33,8 @@ private:
 	int screenWidth;
 	int screenHeight;
 	SDL_Window* window;
+	std::unique_ptr<Camera3> camera;
+	std::unique_ptr<FloorGrid> floorGrid;
 
 	Sprite* sprite;
 	Sprite* sprite2;

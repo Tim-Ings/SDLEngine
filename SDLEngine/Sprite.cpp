@@ -147,7 +147,7 @@ void Sprite::Unload()
 
 float time = 0.0f;
 
-void Sprite::Draw(const SDL_Rect& dest, const Color& color)
+void Sprite::Draw(Camera3* cam, const SDL_Rect& dest, const Color& color)
 {
 	time += 0.0001f;
 
@@ -177,10 +177,11 @@ void Sprite::Draw(const SDL_Rect& dest, const Color& color)
 	// pass color tint to shader
 	glUniform4f(shaderUniformLoc_colorTint, (float)color.r / 255, (float)color.g / 255, (float)color.b / 255, (float)color.a / 255);
 
-	glm::mat4 transform;
-	transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, -time * 10.0f));
-	transform = glm::rotate(transform, 180.0f * cos(time + 1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	transform = glm::scale(transform, glm::vec3(0.5f));
+	// some transforms based on time
+	glm::mat4 transform = cam->GetViewMatrix();
+	transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
+	transform = glm::rotate(transform, 180.0f * cos(time + 1.0f), glm::vec3(1.0f, 0.8f * cos(time * 80), 0.0f));
+	transform = glm::scale(transform, glm::vec3(0.5f * std::max(sin(time * 50), 0.5f)));
 
 	glUniformMatrix4fv(shaderUniformLoc_transform, 1, GL_FALSE, glm::value_ptr(transform));
 

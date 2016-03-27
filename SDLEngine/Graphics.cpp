@@ -3,15 +3,20 @@
 
 Graphics::Graphics(Engine* e)
 {
+	// init values
 	engine = e;
-
 	screenWidth = 1024;
 	screenHeight = 768;
 	window = nullptr;
 
+	// init sdl
 	InitSDL();
 
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	// init camera
+	camera.reset(new Camera3(window));
+
+	// init a floor
+	floorGrid.reset(new FloorGrid());
 
 	// --------------------------------
 	//				TEST
@@ -44,31 +49,59 @@ void Graphics::InitSDL()
 	auto err = glewInit();
 	if (err != GLEW_OK)
 		fatalError("FAILED: glewInit(): " + err);
+
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 }
 
 
 // Function to draw a grid of lines
-void drawGround(float groundLevel)
+//void drawGround(Camera3* cam, float groundLevel)
+//{
+//	GLfloat extent = 600.0f; // How far on the Z-Axis and X-Axis the ground extends
+//	GLfloat stepSize = 20.0f;  // The size of the separation between points
+//
+//							   // Set colour to white
+//	glColor3ub(255, 0, 255);
+//
+//	// Draw our ground grid
+//	glMatrixMode(GL_MODELVIEW);
+//	glMultMatrix(glm::value_ptr(cam->GetViewMatrix()));
+//	glBegin(GL_LINES);
+//	for (GLint loop = -extent; loop < extent; loop += stepSize)
+//	{
+//		// Draw lines along Z-Axis
+//		glVertex3f(loop, groundLevel, extent);
+//		glVertex3f(loop, groundLevel, -extent);
+//
+//		// Draw lines across X-Axis
+//		glVertex3f(-extent, groundLevel, loop);
+//		glVertex3f(extent, groundLevel, loop);
+//	}
+//	glEnd();
+//}
+
+
+void Graphics::Update(float deltaTime)
 {
-	GLfloat extent = 600.0f; // How far on the Z-Axis and X-Axis the ground extends
-	GLfloat stepSize = 20.0f;  // The size of the separation between points
+	camera->Update();
 
-							   // Set colour to white
-	glColor3ub(255, 255, 255);
+	if (Input::IsKeyDown(SDL_SCANCODE_W))
+		camera->ProcessKeyboard(Camera_Movement::FORWARD, deltaTime);
+	if (Input::IsKeyDown(SDL_SCANCODE_S))
+		camera->ProcessKeyboard(Camera_Movement::BACKWARD, deltaTime);
+	if (Input::IsKeyDown(SDL_SCANCODE_A))
+		camera->ProcessKeyboard(Camera_Movement::LEFT, deltaTime);
+	if (Input::IsKeyDown(SDL_SCANCODE_D))
+		camera->ProcessKeyboard(Camera_Movement::RIGHT, deltaTime);
 
-	// Draw our ground grid
-	glBegin(GL_LINES);
-	for (GLint loop = -extent; loop < extent; loop += stepSize)
-	{
-		// Draw lines along Z-Axis
-		glVertex3f(loop, groundLevel, extent);
-		glVertex3f(loop, groundLevel, -extent);
+	camera->ProcessMouseMovement(Input::GetMousePos());
 
-		// Draw lines across X-Axis
-		glVertex3f(-extent, groundLevel, loop);
-		glVertex3f(extent, groundLevel, loop);
-	}
-	glEnd();
+	if (Input::WasKeyDown(SDL_SCANCODE_ESCAPE))
+		camera->SetWarpMouse(false);
+
+	if (Input::IsMouseDown(MOUSE_LEFT))
+		camera->SetWarpMouse(true);
+
 }
 
 
@@ -77,18 +110,19 @@ void Graphics::Draw()
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// --------------------------------
-	//				TEST
-	// --------------------------------
+	// draw the floor
+	floorGrid->Draw(camera.get());
 
-	drawGround(-0.5f);
+	// --------------------------------						   
+	//				TEST									   
+	// --------------------------------	  					   
 
-	sprite->Draw({ 0, 0, 1, 1 }, { 1, 255, 255, 1 });
-	sprite2->Draw({ 0, 0, 1, 1 }, { 255, 255, 1, 100 });
+	sprite->Draw(camera.get(), { 0, 0, 1, 1 }, { 1, 255, 255, 1 });
+	sprite2->Draw(camera.get(), { 0, 0, 1, 1 }, { 255, 255, 1, 100 });
 
-	// --------------------------------
-	//				END
-	// --------------------------------
+	// --------------------------------						   
+	//				END										   
+	// --------------------------------						   
 
 	SDL_GL_SwapWindow(window);
 }

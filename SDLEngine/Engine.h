@@ -4,6 +4,7 @@
 #include "Graphics.h"
 #include "Input.h"
 #include "FpsManager.h"
+#include "SceneManager.h"
 
 class Engine
 {
@@ -12,6 +13,9 @@ public:
 	~Engine();
 
 	void Run();
+	Graphics* GetGraphics() { return graphics.get(); }
+	FpsManager* GeFpsManager() { return fpsManager.get(); }
+	SceneManager* GetSceneManager() { return sceneManager.get(); }
 
 private:
 	void Init();
@@ -21,7 +25,8 @@ private:
 
 private:
 	bool running;
-	Graphics* graphics;
-	FpsManager* fpsManager;
+	std::unique_ptr<Graphics> graphics;
+	std::unique_ptr<FpsManager> fpsManager;
+	std::unique_ptr<SceneManager> sceneManager;
 };
 
