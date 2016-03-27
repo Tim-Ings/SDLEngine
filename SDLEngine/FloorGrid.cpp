@@ -7,7 +7,9 @@ FloorGrid::FloorGrid(glm::vec3 centre, int dim, int spacing, Color color) :
 	vertexData(nullptr),
 	vertexBuffer(0),
 	shader(nullptr),
-	shaderUniformLoc_transform(0),
+	shaderUniformLoc_model(0),
+	shaderUniformLoc_view(0),
+	shaderUniformLoc_projection(0),
 	shaderAttribLoc_vertexPosition(0),
 	shaderUniformLoc_vertexColor(0)
 {
@@ -16,6 +18,9 @@ FloorGrid::FloorGrid(glm::vec3 centre, int dim, int spacing, Color color) :
 
 	// get shader attrib locations
 	shaderUniformLoc_vertexColor = shader->GetAttribLocation("vertexColor");
+	shaderUniformLoc_model = shader->GetUniformLocation("model");
+	shaderUniformLoc_view = shader->GetUniformLocation("view");
+	shaderUniformLoc_projection = shader->GetUniformLocation("projection");
 
 	// build the grid
 	std::vector<VertexPositionColor> lines;
@@ -45,7 +50,7 @@ FloorGrid::FloorGrid(glm::vec3 centre, int dim, int spacing, Color color) :
 }
 
 
-void FloorGrid::Draw(Camera3* camera)
+void FloorGrid::Draw(Camera3* cam)
 {
 	// bind shader
 	shader->Bind();
@@ -66,8 +71,11 @@ void FloorGrid::Draw(Camera3* camera)
 		(void*)offsetof(VertexPositionColor, color)); // color
 
 	// pass camera transformations to shader
-	glm::mat4 transform = camera->GetViewMatrix();
-	glUniformMatrix4fv(shaderUniformLoc_transform, 1, GL_FALSE, glm::value_ptr(transform));
+	glm::mat4 model = MAT4_I;
+
+	glUniformMatrix4fv(shaderUniformLoc_model, 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(shaderUniformLoc_view, 1, GL_FALSE, glm::value_ptr(cam->GetViewMatrix()));
+	glUniformMatrix4fv(shaderUniformLoc_projection, 1, GL_FALSE, glm::value_ptr(cam->GetPerspectiveMatrix()));
 
 	// draw the triangles
 	glDrawArrays(GL_LINES, 0, vertexCount);

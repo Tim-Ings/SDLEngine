@@ -52,7 +52,9 @@ private:
 	// shader attrib locations
 	GLuint shaderUniformLoc_sampler;
 	GLuint shaderUniformLoc_colorTint;
-	GLuint shaderUniformLoc_transform;
+	GLuint shaderUniformLoc_model;
+	GLuint shaderUniformLoc_view;
+	GLuint shaderUniformLoc_projection;
 	GLuint shaderAttribLoc_vertexUV;
 	GLuint shaderAttribLoc_vertexPosition;
 

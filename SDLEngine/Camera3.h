@@ -4,7 +4,8 @@
 #include <SDL\SDL.h>
 #include <GL\glew.h>
 #include <glm\glm.hpp>
-#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtx\transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "Error.h"
 
 #define VEC3_UP glm::vec3(0.0f, 1.0f, 0.0f)
@@ -30,8 +31,11 @@ public:
 	~Camera3();
 
 	void SetWarpMouse(bool warp) { warpMouse = warp; }
+	glm::mat4 GetTransformationMatrix() { return perspective * view; }
 	glm::mat4 GetViewMatrix() { return view; }
+	glm::mat4 GetPerspectiveMatrix() { return perspective; }
 
+	void Bind();
 	void LookAt(glm::vec3 target);
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime);
 	void ProcessMouseMovement(const glm::vec2& newMousePos);
@@ -53,6 +57,8 @@ private:
 	glm::vec3 right;
 	glm::vec3 worldUp;
 	glm::mat4 view;
+	glm::mat4 perspective;
+	float fov;
 	float yaw;
 	float pitch;
 	float movementSpeed;

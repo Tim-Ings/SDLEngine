@@ -16,7 +16,9 @@ Sprite::Sprite(const std::string& path) :
 	uvBuffer(0),
 	shaderUniformLoc_sampler(0),
 	shaderUniformLoc_colorTint(0),
-	shaderUniformLoc_transform(0),
+	shaderUniformLoc_model(0),
+	shaderUniformLoc_view(0),
+	shaderUniformLoc_projection(0),
 	shaderAttribLoc_vertexUV(0),
 	shaderAttribLoc_vertexPosition(0)
 {
@@ -43,7 +45,9 @@ Sprite::Sprite(const std::string& path) :
 	// get attributes from shader
 	shaderUniformLoc_sampler = shader->GetUniformLocation("sampler");
 	shaderUniformLoc_colorTint = shader->GetUniformLocation("colorTint");
-	shaderUniformLoc_transform = shader->GetUniformLocation("transform");
+	shaderUniformLoc_model = shader->GetUniformLocation("model");
+	shaderUniformLoc_view = shader->GetUniformLocation("view");
+	shaderUniformLoc_projection = shader->GetUniformLocation("projection");
 	shaderAttribLoc_vertexPosition = shader->GetAttribLocation("vertexPosition");
 	shaderAttribLoc_vertexUV = shader->GetAttribLocation("vertexUV");
 
@@ -178,12 +182,14 @@ void Sprite::Draw(Camera3* cam, const SDL_Rect& dest, const Color& color)
 	glUniform4f(shaderUniformLoc_colorTint, (float)color.r / 255, (float)color.g / 255, (float)color.b / 255, (float)color.a / 255);
 
 	// some transforms based on time
-	glm::mat4 transform = cam->GetViewMatrix();
-	transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-	transform = glm::rotate(transform, 180.0f * cos(time + 1.0f), glm::vec3(1.0f, 0.8f * cos(time * 80), 0.0f));
-	transform = glm::scale(transform, glm::vec3(0.5f * std::max(sin(time * 50), 0.5f)));
+	glm::mat4 model = MAT4_I;
+	//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	//model = glm::rotate(model, 180.0f * cos(time + 1.0f), glm::vec3(1.0f, 0.8f * cos(time * 80), 0.0f));
+	model = glm::scale(model, glm::vec3(0.5f));// *std::max(sin(time * 50), 0.5f)));
 
-	glUniformMatrix4fv(shaderUniformLoc_transform, 1, GL_FALSE, glm::value_ptr(transform));
+	glUniformMatrix4fv(shaderUniformLoc_model, 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(shaderUniformLoc_view, 1, GL_FALSE, glm::value_ptr(cam->GetViewMatrix()));
+	glUniformMatrix4fv(shaderUniformLoc_projection, 1, GL_FALSE, glm::value_ptr(cam->GetPerspectiveMatrix()));
 
 	// draw the triangles
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)0);

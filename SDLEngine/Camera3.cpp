@@ -7,11 +7,14 @@ Camera3::Camera3(SDL_Window* window) :
 	windowWidth(0),
 	windowHeight(0),
 	warpMouse(true),
-	position(glm::vec3(0.0f, 1.0f, 3.0f)),
-	front(glm::vec3(0.0f)),
+	position(glm::vec3(0.0f, 0.0f, 0.0f)),
+	front(VEC3_FORWARD),
 	up(VEC3_UP),
 	right(VEC3_RIGHT),
 	worldUp(VEC3_UP),
+	view(MAT4_I),
+	perspective(MAT4_I),
+	fov(45.0f),
 	yaw(-90.0f),
 	pitch(0.0f),
 	movementSpeed(3.0f),
@@ -50,8 +53,15 @@ void Camera3::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 		position -= right * velocity;
 	if (direction == RIGHT)
 		position += right * velocity;
+}
 
-	printf("camera processing keyboard %d\n", direction);
+
+void Camera3::Bind()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(glm::value_ptr(perspective));
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(glm::value_ptr(view));
 }
 
 
@@ -62,8 +72,6 @@ void Camera3::ProcessMouseMovement(const glm::vec2& newMousePos)
 
 	float xoffset = mouseDelta.x * mouseSensitivity;
 	float yoffset = mouseDelta.x * mouseSensitivity;
-
-	printf("camera processing mouse %f %f\n", xoffset, yoffset);
 
 	yaw += xoffset;
 	pitch += yoffset;
@@ -103,6 +111,12 @@ void Camera3::CalculateVectors()
 {
 	// Calculate the new Front vector
 	glm::vec3 front;
+
+	//front = glm::mat3(glm::rotate(yaw, up)) * front;
+	//right = glm::normalize(glm::cross(front, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower 
+	//front = glm::mat3(glm::rotate(yaw, right)) * front;
+
+
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -116,4 +130,5 @@ void Camera3::CalculateVectors()
 void Camera3::Update()
 {
 	view = glm::lookAt(position, position + front, up);
+	perspective = glm::perspective(fov, (float)windowWidth / (float)windowHeight, 0.01f, 10000.0f);
 }

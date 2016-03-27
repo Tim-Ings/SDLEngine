@@ -6,11 +6,13 @@ in vec4 vertexColor;
 out vec3 fragmentPosition;
 out vec4 fragmentColor;
 
-uniform float time;
+uniform mat4 model = mat4(1);
+uniform mat4 view = mat4(1);
+uniform mat4 projection = mat4(1);
+
 
 void main(void)
 {
-	gl_Position.xyz = vertexPosition;
-	gl_Position.w = 1.0;
+	gl_Position = projection * view * model * vec4(vertexPosition, 1);
 	fragmentColor = vertexColor;
 }

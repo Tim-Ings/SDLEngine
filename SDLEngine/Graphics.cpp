@@ -23,7 +23,7 @@ Graphics::Graphics(Engine* e)
 	// --------------------------------
 	
 	sprite = new Sprite("ayy_lamao.jpg");
-	sprite2 = new Sprite("undead_cool_face.jpg");
+	//sprite2 = new Sprite("undead_cool_face.jpg");
 
 	// --------------------------------
 	//				END
@@ -110,6 +110,10 @@ void Graphics::Draw()
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// bind camera
+	camera->Update();
+	camera->Bind();
+
 	// draw the floor
 	floorGrid->Draw(camera.get());
 
@@ -117,8 +121,8 @@ void Graphics::Draw()
 	//				TEST									   
 	// --------------------------------	  					   
 
-	sprite->Draw(camera.get(), { 0, 0, 1, 1 }, { 1, 255, 255, 1 });
-	sprite2->Draw(camera.get(), { 0, 0, 1, 1 }, { 255, 255, 1, 100 });
+	sprite->Draw(camera.get(), { 0, 0, 1, 1 }, { 255, 255, 255, 255 });
+	//sprite2->Draw(camera.get(), { 0, 0, 1, 1 }, { 255, 255, 1, 100 });
 
 	// --------------------------------						   
 	//				END										   

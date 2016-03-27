@@ -21,7 +21,9 @@ private:
 	VertexPositionColor* vertexData;
 	GLuint vertexBuffer;
 	ShaderProgram* shader;
-	GLuint shaderUniformLoc_transform;
+	GLuint shaderUniformLoc_model;
+	GLuint shaderUniformLoc_view;
+	GLuint shaderUniformLoc_projection;
 	GLuint shaderAttribLoc_vertexPosition;
 	GLuint shaderUniformLoc_vertexColor;
 };
