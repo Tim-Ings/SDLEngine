@@ -11,52 +11,15 @@ Graphics::Graphics(Engine* e)
 
 	InitSDL();
 
-	glClearColor(0.1, 0.1, 0.1, 1);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	// --------------------------------
 	//				TEST
 	// --------------------------------
-	vertexData[0].position.x = 0.9;
-	vertexData[0].position.y = -0.9;
-	vertexData[0].position.z = 0.0;
+	
+	sprite = new Sprite("ayy_lamao.jpg");
+	sprite2 = new Sprite("undead_cool_face.jpg");
 
-	vertexData[1].position.x = -0.7;
-	vertexData[1].position.y = -1.0;
-	vertexData[1].position.z = 0.0;
-
-	vertexData[2].position.x = 0.0;
-	vertexData[2].position.y = 1.0;
-	vertexData[2].position.z = 0.0;
-
-	vertexData[0].color.r = 255;
-	vertexData[0].color.g = 0;
-	vertexData[0].color.b = 0;
-	vertexData[0].color.a = 255;
-
-	vertexData[1].color.r = 0;
-	vertexData[1].color.g = 255;
-	vertexData[1].color.b = 0;
-	vertexData[1].color.a = 255;
-
-	vertexData[2].color.r = 0;
-	vertexData[2].color.g = 0;
-	vertexData[2].color.b = 255;
-	vertexData[2].color.a = 255;
-
-	/*for (int i = 0; i < 3; i++)
-	{
-		vertexData[i].color.r = 1;
-		vertexData[i].color.g = 1;
-		vertexData[i].color.b = 1;
-		vertexData[i].color.a = 1;
-	}*/
-
-	glGenBuffers(1, &vboID);
-	glBindBuffer(GL_ARRAY_BUFFER, vboID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	colorProg = new ShaderProgram("BasicVertexShader.glsl", "BasicFragmentShader.glsl");
 	// --------------------------------
 	//				END
 	// --------------------------------
@@ -83,12 +46,9 @@ void Graphics::InitSDL()
 		fatalError("FAILED: glewInit(): " + err);
 }
 
-float time = 0.0;
 
 void Graphics::Draw()
 {
-	time += 0.01;
-
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -96,21 +56,8 @@ void Graphics::Draw()
 	//				TEST
 	// --------------------------------
 
-	colorProg->Use();
-
-	auto timeLoc = colorProg->GetUniformLocation("time");
-
-	glUniform1f(timeLoc, time);
-
-	glBindBuffer(GL_ARRAY_BUFFER, vboID);
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position)); // position
-	glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, color)); // color
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	colorProg->Disuse();
+	sprite->Draw({ 0, 0, 1, 1 });
+	sprite2->Draw({ 0, 0, 1, 1 });
 
 	// --------------------------------
 	//				END

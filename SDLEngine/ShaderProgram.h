@@ -10,10 +10,12 @@ public:
 	ShaderProgram(const std::string& vertexPath, const std::string& fragmentPath);
 	~ShaderProgram();
 
-	void Use();
-	void Disuse();
+	void Bind();
+	void Unbind();
 
+	void SetUniform(const std::string& name, GLuint value);
 	GLuint GetUniformLocation(const std::string& name);
+	GLuint GetAttribLocation(const std::string& name);
 
 private:
 	GLuint Compile(const std::string& filePath, GLenum type);
@@ -21,6 +23,5 @@ private:
 
 private:
 	GLuint programID;
-	int attributeCount;
 };
 

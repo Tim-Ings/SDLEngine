@@ -6,6 +6,7 @@
 #include "ShaderProgram.h"
 #include "Vertex.h"
 #include <cstddef>
+#include "Sprite.h"
 
 class Engine;
 
@@ -28,11 +29,7 @@ private:
 	int screenHeight;
 	SDL_Window* window;
 
-	// --------------------------------
-	//				TEST
-	// --------------------------------
-	Vertex vertexData[6];
-	GLuint vboID;
-	ShaderProgram* colorProg;
+	Sprite* sprite;
+	Sprite* sprite2;
 };
 

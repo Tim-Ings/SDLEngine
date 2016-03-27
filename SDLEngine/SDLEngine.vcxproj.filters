@@ -37,6 +37,9 @@
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -60,12 +63,21 @@
     <ClInclude Include="Vertex.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BasicVertexShader.glsl">
+    <None Include="Color.vs">
       <Filter>Engine\Graphics\Basic Shaders</Filter>
     </None>
-    <None Include="BasicFragmentShader.glsl">
+    <None Include="Color.fs">
+      <Filter>Engine\Graphics\Basic Shaders</Filter>
+    </None>
+    <None Include="Texture.fs">
+      <Filter>Engine\Graphics\Basic Shaders</Filter>
+    </None>
+    <None Include="Texture.vs">
       <Filter>Engine\Graphics\Basic Shaders</Filter>
     </None>
   </ItemGroup>

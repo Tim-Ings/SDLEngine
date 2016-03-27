@@ -3,8 +3,7 @@
 
 
 ShaderProgram::ShaderProgram(const std::string& vertexPath, const std::string& fragmentPath) :
-	programID(0),
-	attributeCount(0)
+	programID(0)
 {
 	GLuint vertexID = Compile(vertexPath, GL_VERTEX_SHADER);
 	GLuint fragmentID = Compile(fragmentPath, GL_FRAGMENT_SHADER);
@@ -112,23 +111,23 @@ GLuint ShaderProgram::Link(GLuint vertexID, GLuint fragID)
 }
 
 
-void ShaderProgram::Use()
+void ShaderProgram::Bind()
 {
 	glUseProgram(programID);
-	for (int i = 0; i < attributeCount; i++)
-	{
-		glEnableVertexAttribArray(i);
-	}
 }
 
 
-void ShaderProgram::Disuse()
+void ShaderProgram::Unbind()
 {
-	for (int i = 0; i < attributeCount; i++)
-	{
-		glDisableVertexAttribArray(i);
-	}
 	glUseProgram(0);
+}
+
+
+void ShaderProgram::SetUniform(const std::string& name, GLuint value)
+{
+	Bind();
+	glUniform1i(glGetUniformLocation(programID, name.c_str()), value);
+	Unbind();
 }
 
 
@@ -137,5 +136,14 @@ GLuint ShaderProgram::GetUniformLocation(const std::string& name)
 	GLuint locationID = glGetUniformLocation(programID, name.c_str());
 	if (locationID == GL_INVALID_INDEX)
 		fatalError("FAILED: Uniform \"" + name + "\" not found in shader");
+	return locationID;
+}
+
+
+GLuint ShaderProgram::GetAttribLocation(const std::string& name)
+{
+	GLuint locationID = glGetAttribLocation(programID, name.c_str());
+	if (locationID == GL_INVALID_INDEX)
+		fatalError("FAILED: Attribute \"" + name + "\" not found in shader");
 	return locationID;
 }
