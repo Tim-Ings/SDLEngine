@@ -47,6 +47,31 @@ void Graphics::InitSDL()
 }
 
 
+// Function to draw a grid of lines
+void drawGround(float groundLevel)
+{
+	GLfloat extent = 600.0f; // How far on the Z-Axis and X-Axis the ground extends
+	GLfloat stepSize = 20.0f;  // The size of the separation between points
+
+							   // Set colour to white
+	glColor3ub(255, 255, 255);
+
+	// Draw our ground grid
+	glBegin(GL_LINES);
+	for (GLint loop = -extent; loop < extent; loop += stepSize)
+	{
+		// Draw lines along Z-Axis
+		glVertex3f(loop, groundLevel, extent);
+		glVertex3f(loop, groundLevel, -extent);
+
+		// Draw lines across X-Axis
+		glVertex3f(-extent, groundLevel, loop);
+		glVertex3f(extent, groundLevel, loop);
+	}
+	glEnd();
+}
+
+
 void Graphics::Draw()
 {
 	glClearDepth(1.0);
@@ -56,8 +81,10 @@ void Graphics::Draw()
 	//				TEST
 	// --------------------------------
 
-	sprite->Draw({ 0, 0, 1, 1 });
-	sprite2->Draw({ 0, 0, 1, 1 });
+	drawGround(-0.5f);
+
+	sprite->Draw({ 0, 0, 1, 1 }, { 1, 255, 255, 1 });
+	sprite2->Draw({ 0, 0, 1, 1 }, { 255, 255, 1, 100 });
 
 	// --------------------------------
 	//				END

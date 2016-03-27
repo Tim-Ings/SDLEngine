@@ -5,7 +5,20 @@ ShaderProgram* Sprite::textureShader = nullptr;
 
 
 // creates a new sprite from the given image file
-Sprite::Sprite(const std::string& path)
+Sprite::Sprite(const std::string& path) :
+	name(""),
+	width(0),
+	height(0),
+	shader(nullptr),
+	textureID(0),
+	vertexBuffer(0),
+	indexBuffer(0),
+	uvBuffer(0),
+	shaderUniformLoc_sampler(0),
+	shaderUniformLoc_colorTint(0),
+	shaderUniformLoc_transform(0),
+	shaderAttribLoc_vertexUV(0),
+	shaderAttribLoc_vertexPosition(0)
 {
 	// load shaders if not already
 	if (!Sprite::textureShader)
@@ -29,6 +42,8 @@ Sprite::Sprite(const std::string& path)
 
 	// get attributes from shader
 	shaderUniformLoc_sampler = shader->GetUniformLocation("sampler");
+	shaderUniformLoc_colorTint = shader->GetUniformLocation("colorTint");
+	shaderUniformLoc_transform = shader->GetUniformLocation("transform");
 	shaderAttribLoc_vertexPosition = shader->GetAttribLocation("vertexPosition");
 	shaderAttribLoc_vertexUV = shader->GetAttribLocation("vertexUV");
 
@@ -49,22 +64,22 @@ Sprite::~Sprite()
 // generates vertext buffer for simple square sprite
 void Sprite::GenerateVertexBuffer()
 {
-	vertexData[0].position = { 0, 0, 0 };
-	vertexData[0].uv = { 0, 0 };
+	vertexData[0].position = { -1, -1, 0 };
+	vertexData[0].uv = { 0, 1 };
 
-	vertexData[1].position = { 1, 0, 0 };
-	vertexData[1].uv = { 1, 0 };
+	vertexData[1].position = { 1, -1, 0 };
+	vertexData[1].uv = { 1, 1 };
 
-	vertexData[2].position = { 0, 1, 0 };
-	vertexData[2].uv = { 0, 1 };
+	vertexData[2].position = { -1, 1, 0 };
+	vertexData[2].uv = { 0, 0 };
 
 	vertexData[3].position = { 1, 1, 0 };
-	vertexData[3].uv = { 1, 1 };
+	vertexData[3].uv = { 1, 0 };
 
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
 	if (!vertexBuffer)
 		fatalError("FAILED: Unable to create vertex buffer");
@@ -85,7 +100,7 @@ void Sprite::GenerateIndexBuffer()
 	glGenBuffers(1, &indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexData), indexData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
 
 	if (!indexBuffer)
 		fatalError("FAILED: Unable to create index buffer");
@@ -130,11 +145,18 @@ void Sprite::Unload()
 	glDeleteTextures(1, &textureID);
 }
 
+float time = 0.0f;
 
-void Sprite::Draw(const SDL_Rect& dest)
+void Sprite::Draw(const SDL_Rect& dest, const Color& color)
 {
+	time += 0.0001f;
+
 	// bind shader
 	shader->Bind();
+
+	// bind texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 
 	// bind buffers
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); // vertex
@@ -151,6 +173,16 @@ void Sprite::Draw(const SDL_Rect& dest)
 	glVertexAttribPointer(shaderAttribLoc_vertexUV,
 		2, GL_FLOAT, GL_TRUE, sizeof(VertexPositionTexture),
 		(void*)offsetof(VertexPositionTexture, uv));
+
+	// pass color tint to shader
+	glUniform4f(shaderUniformLoc_colorTint, (float)color.r / 255, (float)color.g / 255, (float)color.b / 255, (float)color.a / 255);
+
+	glm::mat4 transform;
+	transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, -time * 10.0f));
+	transform = glm::rotate(transform, 180.0f * cos(time + 1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	transform = glm::scale(transform, glm::vec3(0.5f));
+
+	glUniformMatrix4fv(shaderUniformLoc_transform, 1, GL_FALSE, glm::value_ptr(transform));
 
 	// draw the triangles
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)0);

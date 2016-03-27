@@ -6,6 +6,11 @@
 #include "Error.h"
 #include "Vertex.h"
 #include "ShaderProgram.h"
+#include <glm\glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 
 class Sprite
@@ -18,7 +23,7 @@ public:
 	int GetHeight() { return height; }
 	std::string GetName() { return name; }
 
-	void Draw(const SDL_Rect& dest);
+	void Draw(const SDL_Rect& dest, const Color& color);
 
 private:
 	void GenerateVertexBuffer();
@@ -44,6 +49,8 @@ private:
 
 	// shader attrib locations
 	GLuint shaderUniformLoc_sampler;
+	GLuint shaderUniformLoc_colorTint;
+	GLuint shaderUniformLoc_transform;
 	GLuint shaderAttribLoc_vertexUV;
 	GLuint shaderAttribLoc_vertexPosition;
 

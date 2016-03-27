@@ -1,7 +1,9 @@
 #pragma once
 #include <SDL\SDL.h>
+#include <memory>
 #include "Graphics.h"
 #include "Input.h"
+#include "FpsManager.h"
 
 class Engine
 {
@@ -20,6 +22,6 @@ private:
 private:
 	bool running;
 	Graphics* graphics;
-	
+	FpsManager* fpsManager;
 };
 
