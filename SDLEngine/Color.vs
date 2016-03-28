@@ -2,7 +2,7 @@
 
 layout(location = 0) in vec3 position;
 
-uniform mat4 modelViewProjection = mat4(1);
+layout(location = 0) uniform mat4 modelViewProjection = mat4(1);
 
 void main(void)
 {

@@ -1,0 +1,148 @@
+#
+# mtl file for dwarf.obj obj file
+#
+
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_004
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_006
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_007
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_009
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_011
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_012
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_014
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_018
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_019
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_057
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_058
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_060
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_079
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_Body.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_003_Dbl
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_hair00_05_hd.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_053_Dbl
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_hair00_05_hd.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_054_Dbl
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_hair00_05_hd.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_056_Dbl
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_hair00_05_hd.png
+newmtl character_dwarf_male_dwarfmale_hd.m2_Geoset_078_Dbl
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd dwarf_hair00_05_hd.png

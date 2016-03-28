@@ -22,8 +22,10 @@ Graphics::Graphics(Engine* e)
 	//				TEST
 	// --------------------------------
 	
-	colorShader.reset(new ShaderProgram("color.vs", "color.fs"));
-	mesh.reset(new Mesh("models/bear-obj.obj"));
+	shader.reset(new ShaderProgram("texture.vs", "texture.fs"));
+	shader->SetUniform("sampler", 0);
+	texture.reset(new Texture("models/dwarf/dwarf_Body.png"));
+	mesh.reset(new Mesh("models/dwarf/dwarf.obj"));
 
 	/*Vertex verts[] =
 	{
@@ -122,12 +124,13 @@ void Graphics::Draw()
 	//				TEST									   
 	// --------------------------------	  					   
 
-	colorShader->Bind();
+	texture->Bind();
+	shader->Bind();
 	{
-		colorShader->Update(meshTransform, *camera);
+		shader->Update(meshTransform, *camera);
 		mesh->Draw();
 	}
-	colorShader->Unbind();
+	shader->Unbind();
 
 	// --------------------------------						   
 	//				END										   

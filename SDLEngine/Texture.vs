@@ -3,22 +3,16 @@
 in vec3 vertexPosition;
 in vec2 vertexUV;
 
-out vec2 uv;
-out vec4 tint;
+out vec2 uvCoord;
 
 uniform vec4 colorTint = vec4(1);
 uniform mat4 transform = mat4(1);
 
-uniform mat4 projection = mat4(1);
-uniform mat4 view = mat4(1);
-uniform mat4 model = mat4(1);
-
+layout(location = 0) uniform mat4 modelViewProjection = mat4(1);
 
 void main(void)
 {
-	gl_Position = projection * view * model * vec4(vertexPosition, 1);
+	gl_Position = modelViewProjection * vec4(vertexPosition, 1);
 
-	tint = colorTint;
-
-    uv = vertexUV;
+    uvCoord = vertexUV;
 }

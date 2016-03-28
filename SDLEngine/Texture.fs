@@ -1,7 +1,6 @@
 #version 450 core
 
-in vec2 uv;
-in vec4 tint;
+in vec2 uvCoord;
 
 out vec4 color;
 
@@ -9,5 +8,5 @@ uniform sampler2D sampler;
 
 void main(void)
 {
-	color = texture(sampler, uv).rgba * tint;
+	color = texture(sampler, vec2(uvCoord.x, -uvCoord.y)).rgba;
 }

@@ -4,6 +4,7 @@
 #include "Camera3.h"
 #include "Mesh.h"
 #include "ShaderProgram.h"
+#include "Texture.h"
 
 class Engine;
 
@@ -30,7 +31,8 @@ private:
 	std::unique_ptr<Camera3> camera;
 
 	std::unique_ptr<Mesh> mesh;
-	std::unique_ptr<ShaderProgram> colorShader;
+	std::unique_ptr<Texture> texture;
+	std::unique_ptr<ShaderProgram> shader;
 	Transform meshTransform;
 };
 
