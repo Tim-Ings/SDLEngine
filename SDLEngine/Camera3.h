@@ -36,6 +36,7 @@ public:
 	glm::mat4 GetTransformationMatrix() { return perspective * view; }
 	glm::mat4 GetViewMatrix() { return view; }
 	glm::mat4 GetPerspectiveMatrix() { return perspective; }
+	glm::vec3 GetPosition() { return position; }
 
 	void LookAt(glm::vec3 target);
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime);

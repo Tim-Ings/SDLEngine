@@ -1,27 +1,60 @@
 #pragma once
-//#include <fbxsdk.h>
+#include <GL\glew.h>
+#include <SDL\SDL.h>
+#include <SDL\SDL_image.h>
+#include <string>
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtc\type_ptr.hpp>
+#include <math.h>
+#include <algorithm>
+#include <vector>
+#include <fbxsdk.h>
+#include "ShaderProgram.h"
+#include "Camera3.h"
+#include "Error.h"
+#include "Vertex.h"
+
 
 class Model
 {
 public:
-	Model();
+	Model(const std::string& path);
 	~Model();
 
-	//// Load the model from an FBX file
-	//void LoadFromFBX(const char* fileName);
+	std::string GetName() { return name; }
 
-	//// Call to render the model
-	//void Render();
+	void Draw(Camera3* cam, const glm::vec3& pos);
 
 private:
-	//// Scene that holds our loaded FBX model information
-	//FbxScene* mScene;
+	void LoadModel(std::string file);
+	void GenerateBuffers();
+	void GenerateVertexArrayObject();
+	void MapShaderAttributes();
+	void Unload();
 
-	//// Recursive function to traverse the nodes to draw
-	//void DrawRecursive(FbxNode* pNode, FbxAMatrix& pParentGlobalPosition);
-	//// Draw the geometry of our meshes
-	//void DrawMesh(FbxNode* pNode, FbxAMatrix& pParentGlobalPosition);
+private:
+	std::string name;
+	ShaderProgram* shader;
+	GLuint textureID;
+	GLuint vertexArrayObjectID;
 
-	//// Get the geometry offset to a node. This is only for the mesh and the children do not inherit this transform
-	//FbxAMatrix GetGeometryOffset(FbxNode* pNode);
+	// data
+	FbxScene* fbxScene;
+	std::vector<VertexPositionColor> vertexData;
+	std::vector<int> indexData;
+	int indexCount;
+
+	// buffers
+	GLuint vertexBuffer;
+	GLuint indexBuffer;
+	GLuint uvBuffer;
+
+	// shader attrib locations
+	GLuint shaderUniformLoc_model;
+	GLuint shaderUniformLoc_view;
+	GLuint shaderUniformLoc_projection;
+	GLuint shaderAttribLoc_vertexPosition;
+	GLuint shaderAttribLoc_vertexColor;
 };
+

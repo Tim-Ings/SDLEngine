@@ -3,16 +3,16 @@
 #include <SDL\SDL.h>
 #include <SDL\SDL_image.h>
 #include <string>
-#include "Error.h"
-#include "Vertex.h"
-#include "ShaderProgram.h"
 #include <glm\glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#define _USE_MATH_DEFINES
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtc\type_ptr.hpp>
 #include <math.h>
 #include <algorithm>
+#include <vector>
+#include "ShaderProgram.h"
 #include "Camera3.h"
+#include "Error.h"
+#include "Vertex.h"
 
 
 class Sprite
@@ -30,6 +30,9 @@ public:
 private:
 	void GenerateVertexBuffer();
 	void GenerateIndexBuffer();
+	void GenerateVertexArrayObject();
+	void MapShaderAttributes();
+	void LoadImage();
 	GLuint GenerateTexture(SDL_Surface* surface);
 	void Unload();
 
@@ -39,6 +42,7 @@ private:
 	int height;
 	ShaderProgram* shader;
 	GLuint textureID;
+	GLuint vertexArrayObjectID;
 
 	// data
 	VertexPositionTexture vertexData[4];
@@ -57,7 +61,5 @@ private:
 	GLuint shaderUniformLoc_projection;
 	GLuint shaderAttribLoc_vertexUV;
 	GLuint shaderAttribLoc_vertexPosition;
-
-	static ShaderProgram* textureShader;
 };
 

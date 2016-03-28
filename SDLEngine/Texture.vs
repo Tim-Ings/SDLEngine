@@ -9,16 +9,14 @@ out vec4 tint;
 uniform vec4 colorTint = vec4(1);
 uniform mat4 transform = mat4(1);
 
-uniform mat4 model = mat4(1);
-uniform mat4 view = mat4(1);
 uniform mat4 projection = mat4(1);
+uniform mat4 view = mat4(1);
+uniform mat4 model = mat4(1);
 
 
 void main(void)
 {
 	gl_Position = projection * view * model * vec4(vertexPosition, 1);
-	//gl_Position = transform * vec4(vertexPosition, 1.0);
-	//gl_Position.w = 1.0;
 
 	tint = colorTint;
 

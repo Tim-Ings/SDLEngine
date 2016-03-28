@@ -6,7 +6,7 @@ Camera3::Camera3(SDL_Window* window) :
 	window(nullptr),
 	windowWidth(0),
 	windowHeight(0),
-	warpMouse(true),
+	warpMouse(false),
 	position(glm::vec3(0.0f, 0.0f, -1.0f)),
 	front(VEC3_FORWARD),
 	up(VEC3_UP),
@@ -61,10 +61,10 @@ void Camera3::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 		position += right * velocity;
 		break;
 	case UP:
-		position += up * velocity;
+		position += worldUp * velocity;
 		break;
 	case DOWN:
-		position -= up * velocity;
+		position -= worldUp * velocity;
 		break;
 	}
 }

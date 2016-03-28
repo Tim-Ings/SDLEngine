@@ -119,7 +119,7 @@ void ShaderProgram::Bind()
 
 void ShaderProgram::Unbind()
 {
-	glUseProgram(0);
+	glUseProgram(NULL);
 }
 
 
@@ -127,7 +127,13 @@ void ShaderProgram::SetUniform(const std::string& name, GLuint value)
 {
 	Bind();
 	glUniform1i(glGetUniformLocation(programID, name.c_str()), value);
-	Unbind();
+}
+
+
+void ShaderProgram::SetUniform(const GLuint& location, GLuint value)
+{
+	Bind();
+	glUniform1i(location, value);
 }
 
 

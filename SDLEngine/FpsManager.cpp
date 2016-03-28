@@ -43,7 +43,7 @@ void FpsManager::Update()
 		// sleep the current thread so we achieve our desired frame rate
 		int sleepDuration = targetFrameDuration - ticksThisFrame;
 		sleepDuration *= 2; // this makes it work correctly i think
-		printf("too fast! sleeping for %dms\n", sleepDuration);
+		//printf("too fast! sleeping for %dms\n", sleepDuration);
 		SDL_Delay(sleepDuration);
 	}
 
@@ -58,7 +58,7 @@ void FpsManager::Update()
 	{
 		if (windowTitleUpdateTimer->GetTicks() > windowTitleUpdatePeriod)
 		{
-			printf("updating window title with cur fps=%f & avg fps=%f\n", currentFps, averageFps);
+			//printf("updating window title with cur fps=%f & avg fps=%f\n", currentFps, averageFps);
 			sprintf_s(titleBuffer, BUFSIZ, windowTitleFormat.c_str(), currentFps, averageFps);
 			SDL_SetWindowTitle(window, titleBuffer);
 			windowTitleUpdateTimer->Start();

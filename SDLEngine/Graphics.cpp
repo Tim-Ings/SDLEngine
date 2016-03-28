@@ -22,6 +22,7 @@ Graphics::Graphics(Engine* e)
 	//				TEST
 	// --------------------------------
 	
+	model = new Model("models/nelf.fbx");
 	sprite = new Sprite("ayy_lamao.jpg");
 	sprite2 = new Sprite("undead_cool_face.jpg");
 
@@ -54,35 +55,13 @@ void Graphics::InitSDL()
 }
 
 
-// Function to draw a grid of lines
-//void drawGround(Camera3* cam, float groundLevel)
-//{
-//	GLfloat extent = 600.0f; // How far on the Z-Axis and X-Axis the ground extends
-//	GLfloat stepSize = 20.0f;  // The size of the separation between points
-//
-//							   // Set colour to white
-//	glColor3ub(255, 0, 255);
-//
-//	// Draw our ground grid
-//	glMatrixMode(GL_MODELVIEW);
-//	glMultMatrix(glm::value_ptr(cam->GetViewMatrix()));
-//	glBegin(GL_LINES);
-//	for (GLint loop = -extent; loop < extent; loop += stepSize)
-//	{
-//		// Draw lines along Z-Axis
-//		glVertex3f(loop, groundLevel, extent);
-//		glVertex3f(loop, groundLevel, -extent);
-//
-//		// Draw lines across X-Axis
-//		glVertex3f(-extent, groundLevel, loop);
-//		glVertex3f(extent, groundLevel, loop);
-//	}
-//	glEnd();
-//}
-
+static char windowtitle[BUFSIZ];
 
 void Graphics::Update(float deltaTime)
 {
+	sprintf_s(windowtitle, BUFSIZ, "camera pos = { %f, %f, %f, }", camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+	SDL_SetWindowTitle(window, windowtitle);
+
 	camera->Update();
 
 	if (Input::IsKeyDown(SDL_SCANCODE_W))
@@ -118,14 +97,15 @@ void Graphics::Draw()
 	camera->Update();
 
 	// draw the floor
-	//floorGrid->Draw(camera.get());
+	floorGrid->Draw(camera.get());
 
 	// --------------------------------						   
 	//				TEST									   
 	// --------------------------------	  					   
 
-	sprite->Draw(camera.get(), { 5, 1, 1, 1 }, { 255, 255, 255, 255 });
-	sprite2->Draw(camera.get(), { 0, 0, 1, 1 }, { 255, 255, 1, 100 });
+	model->Draw(camera.get(), { 0, 0, 0 });
+	sprite->Draw(camera.get(), { 1, 1, 1, 1 }, { 255, 255, 255, 255 });
+	sprite2->Draw(camera.get(), { 0, 0, 0, 1 }, { 255, 255, 255, 100 });
 
 	// --------------------------------						   
 	//				END										   
