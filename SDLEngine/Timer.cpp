@@ -1,4 +1,5 @@
 #include "Timer.h"
+#include <SDL\SDL.h>
 
 
 
@@ -77,7 +78,7 @@ void Timer::Unpause()
 }
 
 
-int Timer::GetTicks()
+int Timer::GetTicks() const
 {
 	//The actual timer time
 	Uint32 time = 0;

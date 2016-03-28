@@ -13,7 +13,7 @@ Camera3::Camera3(SDL_Window* window) :
 	right(VEC3_RIGHT),
 	worldUp(VEC3_UP),
 	view(MAT4_I),
-	perspective(MAT4_I),
+	projection(MAT4_I),
 	fov(45.0f),
 	yaw(-90.0f),
 	pitch(0.0f),
@@ -127,5 +127,5 @@ void Camera3::CalculateVectors()
 void Camera3::Update()
 {
 	view = glm::lookAt(position, position + front, up);
-	perspective = glm::perspective(fov, (float)windowWidth / (float)windowHeight, 0.01f, 10000.0f);
+	projection = glm::perspective(fov, (float)windowWidth / (float)windowHeight, 0.01f, 10000.0f);
 }

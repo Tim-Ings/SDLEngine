@@ -1,4 +1,7 @@
 #include "Engine.h"
+#include <SDL\SDL.h>
+#include <memory>
+#include "Input.h"
 
 
 

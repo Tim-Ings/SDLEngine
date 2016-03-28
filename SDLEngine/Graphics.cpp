@@ -1,4 +1,7 @@
 #include "Graphics.h"
+#include "Error.h"
+#include "Input.h"
+
 
 
 Graphics::Graphics(Engine* e)
@@ -15,16 +18,18 @@ Graphics::Graphics(Engine* e)
 	// init camera
 	camera.reset(new Camera3(window));
 
-	// init a floor
-	floorGrid.reset(new FloorGrid());
-
 	// --------------------------------
 	//				TEST
 	// --------------------------------
 	
-	model = new Model("models/nelf.fbx");
-	sprite = new Sprite("ayy_lamao.jpg");
-	sprite2 = new Sprite("undead_cool_face.jpg");
+	colorShader.reset(new ShaderProgram("color.vs", "color.fs"));
+	mesh.reset(new Mesh("models/bear-obj.obj"));
+
+	/*Vertex verts[] =
+	{
+		new Vertex()
+	};
+	mesh.reset(new Mesh());*/
 
 	// --------------------------------
 	//				END
@@ -34,11 +39,25 @@ Graphics::Graphics(Engine* e)
 
 Graphics::~Graphics()
 {
+	if (glContext)
+		SDL_GL_DeleteContext(glContext);
+	if (window)
+		SDL_DestroyWindow(window);
+
+	SDL_Quit();
 }
 
 
 void Graphics::InitSDL()
 {
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
 	window = SDL_CreateWindow("SDL Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, SDL_WINDOW_OPENGL);
 	if (!window)
 		fatalError("FAILED: SDL_CreateWindow()");
@@ -52,6 +71,9 @@ void Graphics::InitSDL()
 		fatalError("FAILED: glewInit(): " + err);
 
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 }
 
 
@@ -96,16 +118,16 @@ void Graphics::Draw()
 	// bind camera
 	camera->Update();
 
-	// draw the floor
-	floorGrid->Draw(camera.get());
-
 	// --------------------------------						   
 	//				TEST									   
 	// --------------------------------	  					   
 
-	model->Draw(camera.get(), { 0, 0, 0 });
-	sprite->Draw(camera.get(), { 1, 1, 1, 1 }, { 255, 255, 255, 255 });
-	sprite2->Draw(camera.get(), { 0, 0, 0, 1 }, { 255, 255, 255, 100 });
+	colorShader->Bind();
+	{
+		colorShader->Update(meshTransform, *camera);
+		mesh->Draw();
+	}
+	colorShader->Unbind();
 
 	// --------------------------------						   
 	//				END										   

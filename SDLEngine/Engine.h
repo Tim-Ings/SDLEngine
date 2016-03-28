@@ -1,8 +1,5 @@
 #pragma once
-#include <SDL\SDL.h>
-#include <memory>
 #include "Graphics.h"
-#include "Input.h"
 #include "FpsManager.h"
 #include "SceneManager.h"
 

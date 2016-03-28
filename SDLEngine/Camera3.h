@@ -15,6 +15,7 @@
 #define VEC3_FORWARD glm::vec3(0.0f, 0.0f, -1.0f)
 #define VEC3_BACKWARD glm::vec3(0.0f, 0.0f, 1.0f)
 #define MAT4_I glm::mat4(1.0f)
+#define MAT3_I glm::mat3(1.0f)
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -33,10 +34,8 @@ public:
 	~Camera3();
 
 	void SetWarpMouse(bool warp) { warpMouse = warp; }
-	glm::mat4 GetTransformationMatrix() { return perspective * view; }
-	glm::mat4 GetViewMatrix() { return view; }
-	glm::mat4 GetPerspectiveMatrix() { return perspective; }
-	glm::vec3 GetPosition() { return position; }
+	inline glm::vec3 GetPosition() { return position; }
+	inline glm::mat4 GetViewProjection() const { return projection * view; }
 
 	void LookAt(glm::vec3 target);
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime);
@@ -59,7 +58,7 @@ private:
 	glm::vec3 right;
 	glm::vec3 worldUp;
 	glm::mat4 view;
-	glm::mat4 perspective;
+	glm::mat4 projection;
 	float fov;
 	float yaw;
 	float pitch;

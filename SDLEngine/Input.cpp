@@ -1,4 +1,7 @@
 #include "Input.h"
+#include <algorithm>
+
+
 
 bool Input::keyboardState[BUFSIZ];
 bool Input::lastKeyboardState[BUFSIZ];

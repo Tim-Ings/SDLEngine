@@ -1,8 +1,8 @@
 #pragma once
-#include <string>
 #include <GL\glew.h>
-#include "Error.h"
-#include <vector>
+#include <string>
+#include "Transform.h"
+#include "Camera3.h"
 
 class ShaderProgram
 {
@@ -10,6 +10,7 @@ public:
 	ShaderProgram(const std::string& vertexPath, const std::string& fragmentPath);
 	~ShaderProgram();
 
+	void Update(const Transform& transform, const Camera3& camera);
 	void Bind();
 	void Unbind();
 
@@ -23,6 +24,9 @@ private:
 	GLuint Link(GLuint vertexID, GLuint fragID);
 
 private:
+	static const unsigned int NUM_UNIFORMS = 3;
+
 	GLuint programID;
+	GLuint uniformLocations[NUM_UNIFORMS];
 };
 

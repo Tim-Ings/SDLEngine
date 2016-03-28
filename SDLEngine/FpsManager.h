@@ -12,16 +12,16 @@ public:
 
 	void Update();
 
-	float GetWindowTitleUpdatePeriod() { return windowTitleUpdatePeriod; }
-	void SetWindowTitleUpdatePeriod(float ms) { windowTitleUpdatePeriod = ms; }
-	float GetTargetFps() { return maxFps; }
-	void SetTargetFps(float maxFrameRate) { maxFps = maxFrameRate; }
-	std::string GetWindowTitleFormat() { return windowTitleFormat; }
-	void SetWindowTitleFormat(std::string format) { windowTitleFormat = format; }
-	void SetWindow(SDL_Window* window) { this->window = window; };
-	float GetCurrentFps() { return currentFps; }
-	float GetAverageFps() { return averageFps; }
-	float GetDeltaTime() { return deltaTime; }
+	inline void SetWindowTitleUpdatePeriod(float ms) { windowTitleUpdatePeriod = ms; }
+	inline void SetTargetFps(float maxFrameRate) { maxFps = maxFrameRate; }
+	inline void SetWindowTitleFormat(std::string format) { windowTitleFormat = format; }
+	inline void SetWindow(SDL_Window* window) { this->window = window; }
+	inline std::string GetWindowTitleFormat() const { return windowTitleFormat; }
+	inline float GetCurrentFps() const { return currentFps; }
+	inline float GetAverageFps() const { return averageFps; }
+	inline float GetDeltaTime() const { return deltaTime; }
+	inline float GetTargetFps() const { return maxFps; }
+	inline float GetWindowTitleUpdatePeriod() const { return windowTitleUpdatePeriod; }
 
 private:
 	float targetFrameDuration;

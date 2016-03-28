@@ -1,11 +1,8 @@
 #version 450 core
 
-in vec4 fragmentColor;
-
 out vec4 color;
-
 
 void main(void)
 {
-	color = fragmentColor;
+	color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }

@@ -1,9 +1,7 @@
 #pragma once
-#include <stdlib.h>
-#include <stdio.h>
-#include <SDL\SDL.h>
-#include <algorithm>
 #include <glm\glm.hpp>
+#include <SDL\SDL.h>
+#include <stdio.h>
 
 
 enum MouseButton

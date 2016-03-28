@@ -1,17 +1,9 @@
 #pragma once
-#include <windows.h>
-#include <GL\glew.h>
 #include <SDL\SDL.h>
-#include <cstddef>
 #include <memory>
-#include "Error.h"
-#include "ShaderProgram.h"
-#include "Vertex.h"
-#include "Sprite.h"
 #include "Camera3.h"
-#include "Input.h"
-#include "FloorGrid.h"
-#include "Model.h"
+#include "Mesh.h"
+#include "ShaderProgram.h"
 
 class Engine;
 
@@ -34,11 +26,11 @@ private:
 	int screenWidth;
 	int screenHeight;
 	SDL_Window* window;
+	SDL_GLContext glContext;
 	std::unique_ptr<Camera3> camera;
-	std::unique_ptr<FloorGrid> floorGrid;
 
-	Model* model;
-	Sprite* sprite;
-	Sprite* sprite2;
+	std::unique_ptr<Mesh> mesh;
+	std::unique_ptr<ShaderProgram> colorShader;
+	Transform meshTransform;
 };
 

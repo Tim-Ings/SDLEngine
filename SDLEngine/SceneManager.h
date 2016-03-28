@@ -8,6 +8,8 @@ public:
 	SceneManager();
 	~SceneManager();
 
+	void ChangeScene(const int& sceneID);
+
 private:
 	int currentScene;
 	std::vector<BaseScene*> scenes;

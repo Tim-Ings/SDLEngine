@@ -1,6 +1,7 @@
 #include "FpsManager.h"
 
 
+
 FpsManager::FpsManager(int maxFrameRate) :
 	targetFrameDuration(0.0f),
 	maxFps(0.0f),

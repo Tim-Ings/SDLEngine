@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glew32.lib;SDL2_image.lib;libfbxsdk.lib;libfbxsdk-md.lib;libfbxsdk-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -128,34 +128,35 @@
     <ClInclude Include="Camera3.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Error.h" />
-    <ClInclude Include="FloorGrid.h" />
     <ClInclude Include="FpsManager.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_MainMenu.h" />
     <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera3.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Error.cpp" />
-    <ClCompile Include="FloorGrid.cpp" />
     <ClCompile Include="FpsManager.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_MainMenu.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

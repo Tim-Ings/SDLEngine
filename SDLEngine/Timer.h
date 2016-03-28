@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL\SDL.h>
 
 
 class Timer
@@ -13,9 +12,9 @@ public:
 	void Pause();
 	void Unpause();
 
-	int GetTicks();
-	bool IsStarted() { return started; }
-	bool IsPaused() { return paused; }
+	int GetTicks() const;
+	inline bool IsStarted() const { return started; }
+	inline bool IsPaused() const { return paused; }
 
 private:
 	int startTicks;
