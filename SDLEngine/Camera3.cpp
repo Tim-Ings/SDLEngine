@@ -17,7 +17,7 @@ Camera3::Camera3(SDL_Window* window) :
 	fov(45.0f),
 	yaw(-90.0f),
 	pitch(0.0f),
-	movementSpeed(3.0f),
+	movementSpeed(5.0f),
 	mouseSensitivity(0.25f),
 	zoom(45.0f),
 	constrainPitch(true)

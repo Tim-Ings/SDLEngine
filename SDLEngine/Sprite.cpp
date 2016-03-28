@@ -181,13 +181,14 @@ void Sprite::Draw(Camera3* cam, const SDL_Rect& dest, const Color& color)
 	// pass color tint to shader
 	glUniform4f(shaderUniformLoc_colorTint, (float)color.r / 255, (float)color.g / 255, (float)color.b / 255, (float)color.a / 255);
 
-	// some transforms based on time
+	// pass model transformation to shader
 	glm::mat4 model = MAT4_I;
 	model = glm::translate(model, glm::vec3(dest.x, dest.y, 0.0f));
 	//model = glm::rotate(model, 180.0f * cos(time + 1.0f), glm::vec3(1.0f, 0.8f * cos(time * 80), 0.0f));
 	model = glm::scale(model, glm::vec3(0.5f));// *std::max(sin(time * 50), 0.5f)));
-
 	glUniformMatrix4fv(shaderUniformLoc_model, 1, GL_FALSE, glm::value_ptr(model));
+
+	// pass camera veiw + projection to the shader
 	glUniformMatrix4fv(shaderUniformLoc_view, 1, GL_FALSE, glm::value_ptr(cam->GetViewMatrix()));
 	glUniformMatrix4fv(shaderUniformLoc_projection, 1, GL_FALSE, glm::value_ptr(cam->GetPerspectiveMatrix()));
 
