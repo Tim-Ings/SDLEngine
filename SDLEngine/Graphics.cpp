@@ -24,14 +24,8 @@ Graphics::Graphics(Engine* e)
 	
 	shader.reset(new ShaderProgram("texture.vs", "texture.fs"));
 	shader->SetUniform("sampler", 0);
-	texture.reset(new Texture("models/dwarf/dwarf_Body.png"));
-	mesh.reset(new Mesh("models/dwarf/dwarf.obj"));
-
-	/*Vertex verts[] =
-	{
-		new Vertex()
-	};
-	mesh.reset(new Mesh());*/
+	model.reset(new Model("models/dwarf/dwarf.obj", "models/dwarf/dwarf_Body.png"));
+	model->SetShader(shader.get());
 
 	// --------------------------------
 	//				END
@@ -109,6 +103,13 @@ void Graphics::Update(float deltaTime)
 	if (Input::IsMouseDown(MOUSE_LEFT))
 		camera->SetWarpMouse(true);
 
+
+	if (Input::WasKeyDown(SDL_SCANCODE_I))
+		SetRenderMode(RENDERMODE_NORMAL);
+	if (Input::WasKeyDown(SDL_SCANCODE_O))
+		SetRenderMode(RENDERMODE_WIREFRAME);
+	if (Input::WasKeyDown(SDL_SCANCODE_P))
+		SetRenderMode(RENDERMODE_POINT);
 }
 
 
@@ -120,21 +121,19 @@ void Graphics::Draw()
 	// bind camera
 	camera->Update();
 
-	// --------------------------------						   
-	//				TEST									   
-	// --------------------------------	  					   
-
-	texture->Bind();
+	// --------------------------------
+	//				TEST
+	// --------------------------------
+	
 	shader->Bind();
 	{
-		shader->Update(meshTransform, *camera);
-		mesh->Draw();
+		model->Draw(camera.get(), meshTransform);
 	}
 	shader->Unbind();
 
-	// --------------------------------						   
-	//				END										   
-	// --------------------------------						   
+	// --------------------------------
+	//				END
+	// --------------------------------
 
 	SDL_GL_SwapWindow(window);
 }

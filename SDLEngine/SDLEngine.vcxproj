@@ -132,6 +132,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene_Game.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
