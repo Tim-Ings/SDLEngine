@@ -7,7 +7,7 @@ Camera3::Camera3(SDL_Window* window) :
 	windowWidth(0),
 	windowHeight(0),
 	warpMouse(true),
-	position(glm::vec3(0.0f, 0.0f, 0.0f)),
+	position(glm::vec3(0.0f, 0.0f, -1.0f)),
 	front(VEC3_FORWARD),
 	up(VEC3_UP),
 	right(VEC3_RIGHT),
@@ -45,25 +45,29 @@ void Camera3::LookAt(glm::vec3 target)
 void Camera3::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 {
 	float velocity = movementSpeed * deltaTime;
-	if (direction == FORWARD)
+
+	switch (direction)
+	{
+	case FORWARD:
 		position += front * velocity;
-	if (direction == BACKWARD)
+		break;
+	case BACKWARD:
 		position -= front * velocity;
-	if (direction == LEFT)
+		break;
+	case LEFT:
 		position -= right * velocity;
-	if (direction == RIGHT)
+		break;
+	case RIGHT:
 		position += right * velocity;
+		break;
+	case UP:
+		position += up * velocity;
+		break;
+	case DOWN:
+		position -= up * velocity;
+		break;
+	}
 }
-
-
-void Camera3::Bind()
-{
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(glm::value_ptr(perspective));
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(glm::value_ptr(view));
-}
-
 
 // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
 void Camera3::ProcessMouseMovement(const glm::vec2& newMousePos)
@@ -71,7 +75,7 @@ void Camera3::ProcessMouseMovement(const glm::vec2& newMousePos)
 	glm::vec2 mouseDelta = newMousePos - oldMousePosition;
 
 	float xoffset = mouseDelta.x * mouseSensitivity;
-	float yoffset = mouseDelta.x * mouseSensitivity;
+	float yoffset = -mouseDelta.y * mouseSensitivity;
 
 	yaw += xoffset;
 	pitch += yoffset;
@@ -110,13 +114,6 @@ void Camera3::ProcessMouseScroll(float yoffset)
 void Camera3::CalculateVectors()
 {
 	// Calculate the new Front vector
-	glm::vec3 front;
-
-	//front = glm::mat3(glm::rotate(yaw, up)) * front;
-	//right = glm::normalize(glm::cross(front, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower 
-	//front = glm::mat3(glm::rotate(yaw, right)) * front;
-
-
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));

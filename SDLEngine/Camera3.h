@@ -21,7 +21,9 @@ enum Camera_Movement {
 	FORWARD,
 	BACKWARD,
 	LEFT,
-	RIGHT
+	RIGHT,
+	UP,
+	DOWN
 };
 
 class Camera3
@@ -35,7 +37,6 @@ public:
 	glm::mat4 GetViewMatrix() { return view; }
 	glm::mat4 GetPerspectiveMatrix() { return perspective; }
 
-	void Bind();
 	void LookAt(glm::vec3 target);
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime);
 	void ProcessMouseMovement(const glm::vec2& newMousePos);

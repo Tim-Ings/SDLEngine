@@ -23,7 +23,7 @@ Graphics::Graphics(Engine* e)
 	// --------------------------------
 	
 	sprite = new Sprite("ayy_lamao.jpg");
-	//sprite2 = new Sprite("undead_cool_face.jpg");
+	sprite2 = new Sprite("undead_cool_face.jpg");
 
 	// --------------------------------
 	//				END
@@ -93,6 +93,10 @@ void Graphics::Update(float deltaTime)
 		camera->ProcessKeyboard(Camera_Movement::LEFT, deltaTime);
 	if (Input::IsKeyDown(SDL_SCANCODE_D))
 		camera->ProcessKeyboard(Camera_Movement::RIGHT, deltaTime);
+	if (Input::IsKeyDown(SDL_SCANCODE_SPACE))
+		camera->ProcessKeyboard(Camera_Movement::UP, deltaTime);
+	if (Input::IsKeyDown(SDL_SCANCODE_E))
+		camera->ProcessKeyboard(Camera_Movement::DOWN, deltaTime);
 
 	camera->ProcessMouseMovement(Input::GetMousePos());
 
@@ -112,17 +116,16 @@ void Graphics::Draw()
 
 	// bind camera
 	camera->Update();
-	camera->Bind();
 
 	// draw the floor
-	floorGrid->Draw(camera.get());
+	//floorGrid->Draw(camera.get());
 
 	// --------------------------------						   
 	//				TEST									   
 	// --------------------------------	  					   
 
-	sprite->Draw(camera.get(), { 0, 0, 1, 1 }, { 255, 255, 255, 255 });
-	//sprite2->Draw(camera.get(), { 0, 0, 1, 1 }, { 255, 255, 1, 100 });
+	sprite->Draw(camera.get(), { 5, 1, 1, 1 }, { 255, 255, 255, 255 });
+	sprite2->Draw(camera.get(), { 0, 0, 1, 1 }, { 255, 255, 1, 100 });
 
 	// --------------------------------						   
 	//				END										   

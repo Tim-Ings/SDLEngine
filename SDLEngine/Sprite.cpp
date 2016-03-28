@@ -183,7 +183,7 @@ void Sprite::Draw(Camera3* cam, const SDL_Rect& dest, const Color& color)
 
 	// some transforms based on time
 	glm::mat4 model = MAT4_I;
-	//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(dest.x, dest.y, 0.0f));
 	//model = glm::rotate(model, 180.0f * cos(time + 1.0f), glm::vec3(1.0f, 0.8f * cos(time * 80), 0.0f));
 	model = glm::scale(model, glm::vec3(0.5f));// *std::max(sin(time * 50), 0.5f)));
 
