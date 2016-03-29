@@ -14,7 +14,6 @@ enum MaterialIllum
 class Material
 {
 public:
-	//Material(std::string name, glm::vec3 ambientColor, glm::vec3 diffuseColor, glm::vec3 specularColor, MaterialIllum illum, float shininess, float transparency, std::string textureFilePath);
 	Material() {}
 	~Material() {}
 

@@ -1,15 +1,21 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <vector>
 #include "Mesh.h"
 #include "Texture.h"
 #include "ShaderProgram.h"
 
+struct MeshMaterial
+{
+	std::unique_ptr<Mesh> mesh;
+	std::unique_ptr<Material> material;
+};
+
 class Model
 {
 public:
-	Model(const std::string& modelPath, const std::string& texturePath);
-	Model(Mesh* mesh, Texture* texture);
+	Model(const std::string& fileName);
 	~Model();
 
 	void SetShader(ShaderProgram* shader) { this->shader = shader; }
@@ -18,7 +24,6 @@ public:
 
 private:
 	ShaderProgram* shader;
-	std::unique_ptr<Mesh> mesh;
-	std::unique_ptr<Texture> texture;
+	std::vector<MeshMaterial*> layers;
 };
 

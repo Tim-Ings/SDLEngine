@@ -10,7 +10,7 @@ public:
 	ShaderProgram(const std::string& vertexPath, const std::string& fragmentPath);
 	~ShaderProgram();
 
-	void Update(const Transform& transform, const Camera3& camera);
+	void Update(const Transform& transform, Camera3* camera);
 	void Bind();
 	void Unbind();
 

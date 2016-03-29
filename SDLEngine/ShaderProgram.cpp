@@ -120,9 +120,9 @@ GLuint ShaderProgram::Link(GLuint vertexID, GLuint fragID)
 }
 
 
-void ShaderProgram::Update(const Transform& transform, const Camera3& camera)
+void ShaderProgram::Update(const Transform& transform, Camera3* camera)
 {
-	glm::mat4 mvp = transform.GetModelViewProjection(camera);
+	glm::mat4 mvp = transform.GetModelViewProjection(*camera);
 	glUniformMatrix4fv(0, 1, GL_FALSE, glm::value_ptr(mvp)); // layout(location = 0) in mat4 mvp;
 }
 

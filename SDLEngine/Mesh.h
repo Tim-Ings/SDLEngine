@@ -17,16 +17,13 @@ enum MeshBufferPositions
 class Mesh
 {
 public:
-	Mesh(const std::string& fileName);
-	Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices);
+	Mesh(std::vector<glm::vec3> positions, std::vector<glm::vec2> textures, std::vector<glm::vec3> normals, std::vector<int> indices);
 	~Mesh();
 
 	void Draw();
 
 private:
 	static const unsigned int NUM_BUFFERS = 4;
-
-	void InitMesh(const ObjModel& model);
 
 	GLuint vertexArrayObject;
 	GLuint vertexArrayBuffers[NUM_BUFFERS];

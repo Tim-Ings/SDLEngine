@@ -10,9 +10,17 @@ glm::vec2 ParseVec2(const std::string& line);
 glm::vec3 ParseVec3(const std::string& line);
 
 
-ObjModel* LoadObjModel(const std::string& workingDir, const std::string& fileName)
+ObjModel::ObjModel(const std::string& filePath)
 {
-	ObjModel* model = new ObjModel;
+	// standardise dir seperators
+	std::string filePathStd = std::string(filePath);
+	std::replace(filePathStd.begin(), filePathStd.end(), '\\', '/');
+
+	// asd/asd/asd/asd/asd/asd/file.obj
+	auto tokens = SplitString(filePathStd, '/');
+	std::string fileName = tokens[tokens.size() - 1];
+	std::string workingDir = filePathStd.substr(0, filePathStd.size() - fileName.size());
+
 
 	std::ifstream file;
 	file.open((workingDir + "/" + fileName).c_str());
@@ -38,21 +46,21 @@ ObjModel* LoadObjModel(const std::string& workingDir, const std::string& fileNam
 				switch (lineCStr[1])
 				{
 				case 't': // ? == 't' => vertex texture / uv coords
-					model->textureCoords.push_back(ParseVec2(line));
+					textures.push_back(ParseVec2(line));
 					break;
 				case 'n': // ? == 'n' => vertex normal
-					model->normals.push_back(ParseVec3(line));
+					normals.push_back(ParseVec3(line));
 					break;
 				case '\t': // ? == ' ' => vertex
 				case ' ':
-					model->vertices.push_back(ParseVec3(line));
+					positions.push_back(ParseVec3(line));
 					break;
 				}
 				break;
 			}
 			case 'f': // 'f' => face
 			{
-				model->CreateFace(curMaterialIndex, line);
+				CreateFace(curMaterialIndex, line);
 				break;
 			}
 			case 'm': // 'm' => material template lib 
@@ -61,7 +69,7 @@ ObjModel* LoadObjModel(const std::string& workingDir, const std::string& fileNam
 					break;
 				std::string mtlFileName = SplitString(line, ' ')[1];
 				std::vector<Material*> mats = LoadMaterials(workingDir, mtlFileName);
-				model->materials.insert(std::end(model->materials), std::begin(mats), std::end(mats));
+				materials.insert(std::end(materials), std::begin(mats), std::end(mats));
 				break;
 			}
 			case 'u': // 'u' => usemtl
@@ -69,9 +77,9 @@ ObjModel* LoadObjModel(const std::string& workingDir, const std::string& fileNam
 				if (lineCStr[1] != 's')
 					break;
 				std::string mtlName = SplitString(line, ' ')[1];
-				for (int i = 0; i < model->materials.size(); i++)
+				for (int i = 0; i < materials.size(); i++)
 				{
-					if (model->materials[i]->name == mtlName)
+					if (materials[i]->name == mtlName)
 					{
 						curMaterialIndex = i;
 						break;
@@ -86,8 +94,6 @@ ObjModel* LoadObjModel(const std::string& workingDir, const std::string& fileNam
 	{
 		std::cerr << "Unable to load mesh: " << fileName << std::endl;
 	}
-
-	return model;
 }
 
 
@@ -124,16 +130,14 @@ void ObjModel::CreateFace(int materialIndex, const std::string& line)
 	for (int i = 1; i < 4; i++)
 	{
 		std::vector<std::string> subTokens = SplitString(tokens[i], '/');
-		ObjIndex index;
-		index.material = materialIndex;
-		index.vertex = atoi(subTokens[0].c_str()) - 1;
-		index.texture = atoi(subTokens[1].c_str()) - 1;
-		index.normal = atoi(subTokens[2].c_str()) - 1;
-		//indices.push_back(index);
+		int material = materialIndex;
+		int vertex = atoi(subTokens[0].c_str()) - 1;
+		int texture = atoi(subTokens[1].c_str()) - 1;
+		int normal = atoi(subTokens[2].c_str()) - 1;
 
-		indices_vertex.push_back(index.vertex);
-		indices_texture.push_back(index.texture);
-		indices_normal.push_back(index.normal);
-		indices_material.push_back(index.material);
+		indices_positions.push_back(vertex);
+		indices_texture.push_back(texture);
+		indices_normal.push_back(normal);
+		indices_material.push_back(material);
 	}
 }

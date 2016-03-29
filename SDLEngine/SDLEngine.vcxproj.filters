@@ -72,9 +72,12 @@
     <ClCompile Include="ObjLoader.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialLoader.cpp" />
+    <ClCompile Include="MaterialLoader.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -128,11 +131,17 @@
     <ClInclude Include="ObjLoader.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="MaterialLoader.h" />
     <ClInclude Include="SplitString.h">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialLoader.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Engine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
