@@ -73,6 +73,8 @@
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -127,6 +129,11 @@
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialLoader.h" />
+    <ClInclude Include="SplitString.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Color.vs">

@@ -18,6 +18,11 @@ public:
 	glm::vec3* GetNormal() { return &normal; }
 	glm::vec4* GetColor() { return &color; }
 
+	void SetPos(glm::vec3 p) { pos = p; }
+	void SetTexCoord(glm::vec2 tc) { texCoord = tc; }
+	void SetNormal(glm::vec3 n) { normal = n; }
+	void SetColor(glm::vec4 c) { color = c; }
+
 private:
 	glm::vec3 pos;
 	glm::vec2 texCoord;

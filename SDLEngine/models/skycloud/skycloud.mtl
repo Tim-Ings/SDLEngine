@@ -1,0 +1,60 @@
+#
+# mtl file for skycloud.obj obj file
+#
+
+newmtl environments_stars_skywallraidskybox.m2_Geoset_000_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd skycloud_skwall_skybox_topsky.png
+newmtl environments_stars_skywallraidskybox.m2_Geoset_001_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd skycloud_skwall_skybox_mist.png
+newmtl environments_stars_skywallraidskybox.m2_Geoset_002_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd skycloud_skwall_skybox_frontbottom.png
+newmtl environments_stars_skywallraidskybox.m2_Geoset_003_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd skycloud_skwall_skybox_front.png
+newmtl environments_stars_skywallraidskybox.m2_Geoset_004_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd skycloud_skwall_skybox_backsky.png
+newmtl environments_stars_skywallraidskybox.m2_Geoset_005_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd skycloud_skwall_skybox_bottom.png
+newmtl environments_stars_skywallraidskybox.m2_Geoset_006_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd skycloud_skwall_skybox_back.png

@@ -1,45 +1,33 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <string>
+#include "Material.h"
+#include "Vertex.h"
 
-struct OBJIndex
+struct ObjIndex
 {
-	unsigned int vertexIndex;
-	unsigned int uvIndex;
-	unsigned int normalIndex;
-
-	bool operator<(const OBJIndex& r) const { return vertexIndex < r.vertexIndex; }
+	int vertex;
+	int texture;
+	int normal;
+	int material;
 };
 
-class IndexedModel
+struct ObjModel
 {
 public:
-	std::vector<glm::vec3> positions;
-	std::vector<glm::vec2> texCoords;
-	std::vector<glm::vec3> normals;
-	std::vector<unsigned int> indices;
+	void CreateFace(int materialIndex, const std::string& line);
 
-	void CalcNormals();
-};
-
-class OBJModel
-{
 public:
-	std::vector<OBJIndex> OBJIndices;
+	//std::vector<ObjIndex> indices;
+	std::vector<int> indices_vertex;
+	std::vector<int> indices_texture;
+	std::vector<int> indices_normal;
+	std::vector<int> indices_material;
+
 	std::vector<glm::vec3> vertices;
-	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec2> textureCoords;
 	std::vector<glm::vec3> normals;
-	bool hasUVs;
-	bool hasNormals;
-
-	OBJModel(const std::string& fileName);
-
-	IndexedModel ToIndexedModel();
-private:
-	unsigned int FindLastVertexIndex(const std::vector<OBJIndex*>& indexLookup, const OBJIndex* currentIndex, const IndexedModel& result);
-	void CreateOBJFace(const std::string& line);
-
-	glm::vec2 ParseOBJVec2(const std::string& line);
-	glm::vec3 ParseOBJVec3(const std::string& line);
-	OBJIndex ParseOBJIndex(const std::string& token, bool* hasUVs, bool* hasNormals);
+	std::vector<Material*> materials;
 };
+
+extern ObjModel* LoadObjModel(const std::string& workingDir, const std::string& fileName);

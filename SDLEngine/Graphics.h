@@ -53,6 +53,7 @@ private:
 	SDL_GLContext glContext;
 	std::unique_ptr<Camera3> camera;
 
+	std::unique_ptr<Model> skyBox;
 	std::unique_ptr<Model> model;
 	std::unique_ptr<ShaderProgram> shader;
 	Transform meshTransform;
