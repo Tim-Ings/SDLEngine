@@ -1,0 +1,356 @@
+#
+# mtl file for archimonde.obj obj file
+#
+
+newmtl creature_archimonde2_archimonde2.m2_Geoset_004_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_005_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_006_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_007_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_008_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_009_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_010_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_011_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_012
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_horns.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_013
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_014
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_015
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_016
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_017
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_018
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_019
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_020
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_021
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_022
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_023
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_024
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_025
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_026
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_027
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_028
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_029
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_030
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_031
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_032
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_033
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_034
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_035
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_036
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_037
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_038
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_039
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_040
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_041
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_042
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_armor.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_043
+illum 2
+Kd 1.000000 1.000000 1.000000
+Ka 0.250000 0.250000 0.250000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_000_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_001_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2_skin.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_002_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2eyeglow.png
+newmtl creature_archimonde2_archimonde2.m2_Geoset_003_Lum
+illum 2
+Kd 0.000000 0.000000 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ns 0.000000
+map_Kd archimonde_archimonde2eyeglow.png

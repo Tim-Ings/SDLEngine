@@ -56,6 +56,6 @@ private:
 	std::unique_ptr<Model> skyBox;
 	std::unique_ptr<Model> model;
 	std::unique_ptr<ShaderProgram> shader;
-	Transform meshTransform;
+	Transform modelTransform;
 };
 

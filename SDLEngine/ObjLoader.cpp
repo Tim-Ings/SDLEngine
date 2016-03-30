@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
-#include <map>
+#include <sstream>
 #include "MaterialLoader.h"
 #include "SplitString.h"
 
@@ -46,15 +46,69 @@ ObjModel::ObjModel(const std::string& filePath)
 				switch (lineCStr[1])
 				{
 				case 't': // ? == 't' => vertex texture / uv coords
+				{
+#define TEMP_SSCANF // ~5.5 secs
+//#define TEMP_SPLIT // ~10 secs
+//#define TEMP_STREAM // ~7.5 secs
+
+#ifdef TEMP_SSCANF
+					glm::vec2 vt;
+					sscanf_s(lineCStr, "vt %f %f", &vt.x, &vt.y);
+					textures.push_back(vt);
+#endif // SSCANF
+#ifdef TEMP_SPLIT
 					textures.push_back(ParseVec2(line));
+#endif // TEMP_SPLIT
+#ifdef TEMP_STREAM
+					std::istringstream issvt(line.substr(2));
+					glm::vec2 vt;
+					issvt >> vt.x;
+					issvt >> vt.y;
+					textures.push_back(vt);
+#endif // TEMP_STREAM
 					break;
+				}
 				case 'n': // ? == 'n' => vertex normal
+				{
+#ifdef TEMP_SSCANF
+					glm::vec3 vn;
+					sscanf_s(lineCStr, "vn %f %f %f", &vn.x, &vn.y, &vn.z);
+					normals.push_back(vn);
+#endif // SSCANF
+#ifdef TEMP_SPLIT
 					normals.push_back(ParseVec3(line));
+#endif // TEMP_SPLIT
+#ifdef TEMP_STREAM
+					std::istringstream issvt(line.substr(2));
+					glm::vec3 vn;
+					issvt >> vn.x;
+					issvt >> vn.y;
+					issvt >> vn.z;
+					normals.push_back(vn);
+#endif // TEMP_STREAM
 					break;
+				}
 				case '\t': // ? == ' ' => vertex
 				case ' ':
+				{
+#ifdef TEMP_SSCANF
+					glm::vec3 v;
+					sscanf_s(lineCStr, "v %f %f %f", &v.x, &v.y, &v.z);
+					positions.push_back(v);
+#endif // SSCANF
+#ifdef TEMP_SPLIT
 					positions.push_back(ParseVec3(line));
+#endif // TEMP_SPLIT
+#ifdef TEMP_STREAM
+					std::istringstream issvt(line.substr(2));
+					glm::vec3 v;
+					issvt >> v.x;
+					issvt >> v.y;
+					issvt >> v.z;
+					positions.push_back(v);
+#endif // TEMP_STREAM
 					break;
+				}
 				}
 				break;
 			}
@@ -67,7 +121,10 @@ ObjModel::ObjModel(const std::string& filePath)
 			{
 				if (lineCStr[1] != 't')
 					break;
-				std::string mtlFileName = SplitString(line, ' ')[1];
+				char buffer[BUFSIZ];
+				sscanf_s(lineCStr, "mtllib %s", &buffer);
+				std::string mtlFileName = std::string(buffer);
+				//std::string mtlFileName = SplitString(line, ' ')[1];
 				std::vector<Material*> mats = LoadMaterials(workingDir, mtlFileName);
 				materials.insert(std::end(materials), std::begin(mats), std::end(mats));
 				break;
@@ -92,7 +149,7 @@ ObjModel::ObjModel(const std::string& filePath)
 	}
 	else
 	{
-		std::cerr << "Unable to load mesh: " << fileName << std::endl;
+		std::cerr << "Unable to load obj model: " << fileName << std::endl;
 	}
 }
 

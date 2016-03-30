@@ -8,8 +8,8 @@ Graphics::Graphics(Engine* e)
 {
 	// init values
 	engine = e;
-	screenWidth = 1024;
-	screenHeight = 768;
+	screenWidth = 1920;
+	screenHeight = 1080;
 	window = nullptr;
 
 	// init sdl
@@ -24,9 +24,14 @@ Graphics::Graphics(Engine* e)
 	
 	shader.reset(new ShaderProgram("texture.vs", "texture.fs"));
 	shader->SetUniform("sampler", 0);
-	model.reset(new Model("models/dwarf/dwarf.obj"));
+	model.reset(new Model("models/alexstrasza/alexstrasza.obj"));
 	model->SetShader(shader.get());
-/*
+	skyBox.reset(new Model("models/skycloud/skycloud.obj"));
+	skyBox->SetShader(shader.get());
+
+	modelTransform = Transform();
+
+	/*
 	skyBox.reset(new Model("models/skycloud/skycloud.obj", "models/skycloud/skycloud_skwall_skybox_front.png"));
 	skyBox->SetShader(shader.get());
 */
@@ -78,6 +83,10 @@ void Graphics::InitSDL()
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
+	// alpha blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// basic lighting
 	/*glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -125,6 +134,23 @@ void Graphics::Update(float deltaTime)
 		SetRenderMode(RENDERMODE_WIREFRAME);
 	if (Input::WasKeyDown(SDL_SCANCODE_P))
 		SetRenderMode(RENDERMODE_POINT);
+
+	float modelMoveSpeed = 0.01f;
+	float modelRotationSpeed = 0.01f;
+	if (Input::IsKeyDown(SDL_SCANCODE_KP_8))
+		modelTransform.GetPos()->z += modelMoveSpeed;
+	if (Input::IsKeyDown(SDL_SCANCODE_KP_5))
+		modelTransform.GetPos()->z -= modelMoveSpeed;
+	if (Input::IsKeyDown(SDL_SCANCODE_KP_4))
+		modelTransform.GetPos()->x += modelMoveSpeed;
+	if (Input::IsKeyDown(SDL_SCANCODE_KP_6))
+		modelTransform.GetPos()->x -= modelMoveSpeed;
+	if (Input::IsKeyDown(SDL_SCANCODE_KP_7))
+		modelTransform.GetRot()->y -= modelRotationSpeed;
+	if (Input::IsKeyDown(SDL_SCANCODE_KP_9))
+		modelTransform.GetRot()->y += modelRotationSpeed;
+	if (Input::WasKeyDown(SDL_SCANCODE_KP_MINUS))
+		modelTransform = Transform();
 }
 
 
@@ -139,8 +165,8 @@ void Graphics::Draw()
 	//				TEST
 	// --------------------------------
 	
-	model->Draw(camera.get(), meshTransform);
-	//skyBox->Draw(camera.get(), Transform());
+	model->Draw(camera.get(), modelTransform);
+	skyBox->Draw(camera.get(), Transform());
 
 	// --------------------------------
 	//				END
