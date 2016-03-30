@@ -4,6 +4,14 @@
 #include "Material.h"
 #include "Vertex.h"
 
+struct ObjModelIndex
+{
+	int position;
+	int texture;
+	int normal;
+	int material;
+};
+
 struct ObjModel
 {
 public:
@@ -13,10 +21,7 @@ private:
 	void CreateFace(int materialIndex, const std::string& line);
 
 public:
-	std::vector<int> indices_positions;
-	std::vector<int> indices_texture;
-	std::vector<int> indices_normal;
-	std::vector<int> indices_material;
+	std::vector<ObjModelIndex> indices;
 
 	std::vector<glm::vec3> positions;
 	std::vector<glm::vec2> textures;

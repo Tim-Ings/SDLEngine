@@ -6,10 +6,11 @@
 #include "Texture.h"
 #include "ShaderProgram.h"
 
-struct MeshMaterial
+struct ModelLayer
 {
-	std::unique_ptr<Mesh> mesh;
-	std::unique_ptr<Material> material;
+	GLuint indexBufferID;
+	unsigned int numIndices;
+	Material* material;
 };
 
 class Model
@@ -23,7 +24,12 @@ public:
 	void Draw(Camera3* camera, const Transform& transform);
 
 private:
+	static const unsigned int NUM_BUFFERS = 3;
+
+	GLuint vertexArrayObject;
+	GLuint vertexArrayBuffers[NUM_BUFFERS];
+
 	ShaderProgram* shader;
-	std::vector<MeshMaterial*> layers;
+	std::vector<ModelLayer*> layers;
 };
 

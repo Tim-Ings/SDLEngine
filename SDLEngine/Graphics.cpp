@@ -24,7 +24,7 @@ Graphics::Graphics(Engine* e)
 	
 	shader.reset(new ShaderProgram("texture.vs", "texture.fs"));
 	shader->SetUniform("sampler", 0);
-	model.reset(new Model("models/bear/bear-obj.obj"));
+	model.reset(new Model("models/dwarf/dwarf.obj"));
 	model->SetShader(shader.get());
 /*
 	skyBox.reset(new Model("models/skycloud/skycloud.obj", "models/skycloud/skycloud_skwall_skybox_front.png"));

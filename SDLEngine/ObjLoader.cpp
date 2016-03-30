@@ -130,14 +130,13 @@ void ObjModel::CreateFace(int materialIndex, const std::string& line)
 	for (int i = 1; i < 4; i++)
 	{
 		std::vector<std::string> subTokens = SplitString(tokens[i], '/');
-		int material = materialIndex;
-		int vertex = atoi(subTokens[0].c_str()) - 1;
-		int texture = atoi(subTokens[1].c_str()) - 1;
-		int normal = atoi(subTokens[2].c_str()) - 1;
 
-		indices_positions.push_back(vertex);
-		indices_texture.push_back(texture);
-		indices_normal.push_back(normal);
-		indices_material.push_back(material);
+		ObjModelIndex index;
+		index.position = atoi(subTokens[0].c_str()) - 1;
+		index.texture = atoi(subTokens[1].c_str()) - 1;
+		index.normal = atoi(subTokens[2].c_str()) - 1;
+		index.material = materialIndex;
+
+		indices.push_back(index);
 	}
 }

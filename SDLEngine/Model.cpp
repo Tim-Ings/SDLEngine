@@ -5,42 +5,70 @@
 
 Model::Model(const std::string& fileName)
 {
+	// load obj data from file
 	ObjModel* objModel = new ObjModel(fileName);
 	
-	// add a layer for each material
-	for (int i = 0; i < objModel->materials.size(); i++)
-	{
-		
-	}
-
-	// populate each material layer with its indicies
+	// build index buffers for each material
 	for (int matI = 0; matI < objModel->materials.size(); matI++)
 	{
-		Material* material = objModel->materials[matI];
-		std::vector<glm::vec3> positions;
-		std::vector<glm::vec2> textures;
-		std::vector<glm::vec3> normals;
-		std::vector<int> indices;
+		Material* mat = objModel->materials[matI];
+		std::vector<int> posInices;
 
-		for (int indexI = 0; indexI < objModel->indices_material.size(); indexI++)
+		for (int i = 0; i < objModel->indices.size(); i++)
 		{
-			if (objModel->indices_material[indexI] == matI)
-			{
-				positions.push_back(objModel->positions[indexI]);
-				textures.push_back(objModel->textures[indexI]);
-				normals.push_back(objModel->normals[indexI]);
-				indices.push_back(objModel->indices_positions[indexI]);
-			}
+			ObjModelIndex objmi = objModel->indices[i];
+			if (objmi.material == matI)
+				posInices.push_back(objmi.position);
 		}
 
-		Mesh* mesh = new Mesh(positions, textures, normals, indices);
+		GLuint indexBufferID = NULL;
+		// bind and fill the index buffer
+		glGenBuffers(1, &indexBufferID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID);
+		{
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(posInices[0]) * posInices.size(), &posInices[0], GL_STATIC_DRAW);
+		}
 
-		MeshMaterial* mm = new MeshMaterial();
-		mm->mesh.reset(mesh);
-		mm->material.reset(material);
-
-		layers.push_back(mm);
+		ModelLayer* ml = new ModelLayer();
+		ml->material = mat;
+		ml->indexBufferID = indexBufferID;
+		ml->numIndices = posInices.size();
+		layers.push_back(ml);
 	}
+
+	// create buffers for global data
+	// create and bind a new vao
+	glGenVertexArrays(1, &vertexArrayObject);
+	glBindVertexArray(vertexArrayObject);
+	{
+		// create buffers for model data
+		glGenBuffers(NUM_BUFFERS, vertexArrayBuffers);
+
+		// bind and fill the position vertex buffer
+		glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[POSITION_VB]);
+		{
+			glBufferData(GL_ARRAY_BUFFER, sizeof(objModel->positions[0]) * objModel->positions.size(), &objModel->positions[0], GL_STATIC_DRAW);
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		}
+
+		// bind and fill the texture coords vertex buffer
+		glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[TEXCOORD_VB]);
+		{
+			glBufferData(GL_ARRAY_BUFFER, sizeof(objModel->textures[0]) * objModel->textures.size(), &objModel->textures[0], GL_STATIC_DRAW);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		}
+
+		// bind and fill the normals vertex buffer
+		glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[NORMAL_VB]);
+		{
+			glBufferData(GL_ARRAY_BUFFER, sizeof(objModel->normals[0]) * objModel->normals.size(), &objModel->normals[0], GL_STATIC_DRAW);
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		}
+	}
+	glBindVertexArray(NULL);
 }
 
 
@@ -51,16 +79,27 @@ Model::~Model()
 
 void Model::Draw(Camera3* camera, const Transform& transform)
 {
-	for (int i = 0; i < layers.size(); i++)
+	glBindVertexArray(vertexArrayObject);
 	{
-		MeshMaterial* mm = layers[i];
-		mm->material->texture->Bind();
-		//mm->material->shader->Bind(); // do this after we have a shader for each material implemented
-		shader->Bind();					// but for now just use a simple global shader
+		for (int i = 0; i < layers.size(); i++)
 		{
-			shader->Update(transform, camera);
-			mm->mesh->Draw();
+			ModelLayer* ml = layers[i];
+			ml->material->texture->Bind();
+			//mm->material->shader->Bind(); // do this after we have a shader for each material implemented
+			shader->Bind();					// but for now just use a simple global shader
+			{
+				shader->Update(transform, camera);
+
+				// bind index buffer for layer
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ml->indexBufferID);
+				{
+					// draw triangles in mesh
+					glDrawElementsBaseVertex(GL_TRIANGLES, ml->numIndices, GL_UNSIGNED_INT, 0, 0);
+				}
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
+			}
+			shader->Unbind();
 		}
-		shader->Unbind();
 	}
+	glBindVertexArray(NULL);
 }
