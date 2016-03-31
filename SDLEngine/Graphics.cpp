@@ -24,17 +24,13 @@ Graphics::Graphics(Engine* e)
 	
 	shader.reset(new ShaderProgram("TextureVertex.shader", "TextureFragment.shader"));
 	shader->SetUniform("sampler", 0);
-	model.reset(new Model("models/dwarf/dwarf.obj"));
+	model.reset(new Model("models/dwarf/dwarf.objmodel"));
 	model->SetShader(shader.get());
-	skyBox.reset(new Model("models/skycloud/skycloud.obj"));
+	skyBox.reset(new Model("models/skycloud/skycloud.objmodel"));
 	skyBox->SetShader(shader.get());
 
 	modelTransform = Transform();
 
-	/*
-	skyBox.reset(new Model("models/skycloud/skycloud.obj", "models/skycloud/skycloud_skwall_skybox_front.png"));
-	skyBox->SetShader(shader.get());
-*/
 	// --------------------------------
 	//				END
 	// --------------------------------
@@ -86,24 +82,11 @@ void Graphics::InitSDL()
 	// alpha blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	// basic lighting
-	/*glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	GLfloat light0Pos[] = { 0.0f, 0.0f, 0.0f };
-	GLfloat light0Col[] = { 1.0f, 0.0f, 1.0f };
-	glLightfv(GL_LIGHT0, GL_POSITION, light0Pos);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light0Col);*/
 }
 
 
-//static char windowtitle[BUFSIZ];
-
 void Graphics::Update(float deltaTime)
 {
-	/*sprintf_s(windowtitle, BUFSIZ, "camera pos = { %f, %f, %f, }", camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
-	SDL_SetWindowTitle(window, windowtitle);
-*/
 	camera->Update();
 
 	if (Input::IsKeyDown(SDL_SCANCODE_W))
