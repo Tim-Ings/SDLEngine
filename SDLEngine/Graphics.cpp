@@ -8,8 +8,8 @@ Graphics::Graphics(Engine* e)
 {
 	// init values
 	engine = e;
-	screenWidth = 1920;
-	screenHeight = 1080;
+	screenWidth = 1600;
+	screenHeight = 900;
 	window = nullptr;
 
 	// init sdl
@@ -22,9 +22,9 @@ Graphics::Graphics(Engine* e)
 	//				TEST
 	// --------------------------------
 	
-	shader.reset(new ShaderProgram("texture.vs", "texture.fs"));
+	shader.reset(new ShaderProgram("TextureVertex.shader", "TextureFragment.shader"));
 	shader->SetUniform("sampler", 0);
-	model.reset(new Model("models/alexstrasza/alexstrasza.obj"));
+	model.reset(new Model("models/dwarf/dwarf.obj"));
 	model->SetShader(shader.get());
 	skyBox.reset(new Model("models/skycloud/skycloud.obj"));
 	skyBox->SetShader(shader.get());

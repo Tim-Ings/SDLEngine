@@ -166,10 +166,10 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Color.fs" />
-    <None Include="Texture.fs" />
-    <None Include="Texture.vs" />
-    <None Include="Color.vs" />
+    <None Include="ColorFragment.shader" />
+    <None Include="TextureFragment.shader" />
+    <None Include="TextureVertex.shader" />
+    <None Include="ColorVertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

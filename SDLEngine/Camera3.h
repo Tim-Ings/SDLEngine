@@ -35,6 +35,8 @@ public:
 
 	void SetWarpMouse(bool warp) { warpMouse = warp; }
 	inline glm::vec3 GetPosition() { return position; }
+	inline glm::mat4 GetView() const { return view; }
+	inline glm::mat4 GetProjection() const { return projection; }
 	inline glm::mat4 GetViewProjection() const { return projection * view; }
 
 	void LookAt(glm::vec3 target);

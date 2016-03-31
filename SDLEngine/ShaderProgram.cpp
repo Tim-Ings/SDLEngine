@@ -122,6 +122,21 @@ GLuint ShaderProgram::Link(GLuint vertexID, GLuint fragID)
 
 void ShaderProgram::Update(const Transform& transform, Camera3* camera)
 {
+	//// uniform mat4 projectionMatrix;
+	//// uniform mat4 modelMatrix;
+	//// uniform mat4 viewMatrix;
+	//// uniform mat4 normalMatrix;
+
+	//glm::mat4 projectionMatrix = camera->GetProjection();
+	//glm::mat4 modelMatrix = transform.GetModel();
+	//glm::mat4 viewMatrix = camera->GetView();
+	//glm::mat4 normalMatrix = MAT4_I;
+
+	//glUniformMatrix4fv(0, 1, GL_FALSE, glm::value_ptr(projectionMatrix)); // uniform mat4 projectionMatrix;
+	//glUniformMatrix4fv(1, 1, GL_FALSE, glm::value_ptr(modelMatrix)); // uniform mat4 modelMatrix;
+	//glUniformMatrix4fv(2, 1, GL_FALSE, glm::value_ptr(viewMatrix)); // uniform mat4 viewMatrix;
+	//glUniformMatrix4fv(2, 1, GL_FALSE, glm::value_ptr(normalMatrix)); // uniform mat4 viewMatrix;
+
 	glm::mat4 mvp = transform.GetModelViewProjection(*camera);
 	glUniformMatrix4fv(0, 1, GL_FALSE, glm::value_ptr(mvp)); // layout(location = 0) in mat4 mvp;
 }

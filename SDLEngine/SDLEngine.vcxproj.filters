@@ -145,16 +145,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Color.vs">
+    <None Include="TextureVertex.shader">
       <Filter>Engine\Graphics\Basic Shaders</Filter>
     </None>
-    <None Include="Color.fs">
+    <None Include="TextureFragment.shader">
       <Filter>Engine\Graphics\Basic Shaders</Filter>
     </None>
-    <None Include="Texture.fs">
+    <None Include="ColorVertex.shader">
       <Filter>Engine\Graphics\Basic Shaders</Filter>
     </None>
-    <None Include="Texture.vs">
+    <None Include="ColorFragment.shader">
       <Filter>Engine\Graphics\Basic Shaders</Filter>
     </None>
   </ItemGroup>
