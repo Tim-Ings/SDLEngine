@@ -24,7 +24,7 @@ Graphics::Graphics(Engine* e)
 	
 	shader.reset(new ShaderProgram("TextureVertex.shader", "TextureFragment.shader"));
 	shader->SetUniform("sampler", 0);
-	model.reset(new Model("models/dwarf/dwarf.objmodel"));
+	model.reset(new Model("models/ogron/ogron.objmodel"));
 	model->SetShader(shader.get());
 	skyBox.reset(new Model("models/skycloud/skycloud.objmodel"));
 	skyBox->SetShader(shader.get());
